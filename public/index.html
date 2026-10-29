@@ -174,20 +174,29 @@
       </div>
 
       <!-- Barra de Pestañas Públicas Responsiva -->
-      <div class="max-w-7xl mx-auto px-2 sm:px-4 grid grid-cols-2 sm:flex sm:items-center gap-1 border-t border-slate-800/70 pt-1 pb-1 sm:pb-0">
-        <button type="button" id="pubTabBtn-tabla" onclick="switchPublicTab('tabla')" class="pub-tab-btn flex items-center justify-center sm:justify-start gap-1.5 sm:gap-2 px-2.5 sm:px-4 py-2 sm:py-2.5 text-xs sm:text-sm font-bold border-b-2 border-emerald-400 text-emerald-400 whitespace-nowrap transition-all">
+      <div class="max-w-7xl mx-auto px-2 sm:px-4 grid grid-cols-2 sm:flex sm:flex-wrap sm:items-center gap-1 border-t border-slate-800/70 pt-1 pb-1 sm:pb-0">
+        <button type="button" id="pubTabBtn-tabla" onclick="switchPublicTab('tabla')" class="pub-tab-btn flex items-center justify-center sm:justify-start gap-1.5 sm:gap-2 px-2.5 sm:px-3.5 py-2 sm:py-2.5 text-xs sm:text-sm font-bold border-b-2 border-emerald-400 text-emerald-400 whitespace-nowrap transition-all">
           <i data-lucide="list-ordered" class="w-4 h-4 shrink-0"></i>
           <span>Tabla General</span>
         </button>
-        <button type="button" id="pubTabBtn-calendario" onclick="switchPublicTab('calendario')" class="pub-tab-btn flex items-center justify-center sm:justify-start gap-1.5 sm:gap-2 px-2.5 sm:px-4 py-2 sm:py-2.5 text-xs sm:text-sm font-medium border-b-2 border-transparent text-slate-400 hover:text-slate-200 whitespace-nowrap transition-all">
+        <button type="button" id="pubTabBtn-calendario" onclick="switchPublicTab('calendario')" class="pub-tab-btn flex items-center justify-center sm:justify-start gap-1.5 sm:gap-2 px-2.5 sm:px-3.5 py-2 sm:py-2.5 text-xs sm:text-sm font-medium border-b-2 border-transparent text-slate-400 hover:text-slate-200 whitespace-nowrap transition-all">
           <i data-lucide="calendar-days" class="w-4 h-4 shrink-0"></i>
           <span>Calendario y Sedes</span>
         </button>
-        <button type="button" id="pubTabBtn-equipos" onclick="switchPublicTab('equipos')" class="pub-tab-btn flex items-center justify-center sm:justify-start gap-1.5 sm:gap-2 px-2.5 sm:px-4 py-2 sm:py-2.5 text-xs sm:text-sm font-medium border-b-2 border-transparent text-slate-400 hover:text-slate-200 whitespace-nowrap transition-all">
+        <button type="button" id="pubTabBtn-jugadores" onclick="switchPublicTab('jugadores')" class="pub-tab-btn flex items-center justify-center sm:justify-start gap-1.5 sm:gap-2 px-2.5 sm:px-3.5 py-2 sm:py-2.5 text-xs sm:text-sm font-medium border-b-2 border-transparent text-slate-400 hover:text-slate-200 whitespace-nowrap transition-all">
+          <i data-lucide="users" class="w-4 h-4 shrink-0"></i>
+          <span>Jugadores y Asistencias</span>
+        </button>
+        <button type="button" id="pubTabBtn-suspendidos" onclick="switchPublicTab('suspendidos')" class="pub-tab-btn flex items-center justify-center sm:justify-start gap-1.5 sm:gap-2 px-2.5 sm:px-3.5 py-2 sm:py-2.5 text-xs sm:text-sm font-medium border-b-2 border-transparent text-slate-400 hover:text-slate-200 whitespace-nowrap transition-all">
+          <i data-lucide="shield-alert" class="w-4 h-4 shrink-0 text-rose-400"></i>
+          <span>Suspendidos</span>
+          <span id="pubSuspendedBadge" class="px-1.5 py-0.5 text-[10px] font-bold bg-slate-800 text-slate-300 rounded-full">0</span>
+        </button>
+        <button type="button" id="pubTabBtn-equipos" onclick="switchPublicTab('equipos')" class="pub-tab-btn flex items-center justify-center sm:justify-start gap-1.5 sm:gap-2 px-2.5 sm:px-3.5 py-2 sm:py-2.5 text-xs sm:text-sm font-medium border-b-2 border-transparent text-slate-400 hover:text-slate-200 whitespace-nowrap transition-all">
           <i data-lucide="shield" class="w-4 h-4 shrink-0"></i>
           <span>Clubes y Escudos</span>
         </button>
-        <button type="button" id="pubTabBtn-notificaciones" onclick="switchPublicTab('notificaciones')" class="pub-tab-btn flex items-center justify-center sm:justify-start gap-1.5 sm:gap-2 px-2.5 sm:px-4 py-2 sm:py-2.5 text-xs sm:text-sm font-medium border-b-2 border-transparent text-slate-400 hover:text-slate-200 whitespace-nowrap transition-all">
+        <button type="button" id="pubTabBtn-notificaciones" onclick="switchPublicTab('notificaciones')" class="pub-tab-btn flex items-center justify-center sm:justify-start gap-1.5 sm:gap-2 px-2.5 sm:px-3.5 py-2 sm:py-2.5 text-xs sm:text-sm font-medium border-b-2 border-transparent text-slate-400 hover:text-slate-200 whitespace-nowrap transition-all">
           <i data-lucide="bell-ring" class="w-4 h-4 shrink-0"></i>
           <span>Notificaciones</span>
         </button>
@@ -416,6 +425,148 @@
         </div>
       </section>
 
+      <!-- PESTAÑA NUEVA: JUGADORES, ASISTENCIAS Y ELEGIBILIDAD PARA FINALES -->
+      <section id="pubTab-jugadores" class="space-y-5 hidden">
+        <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+          <div>
+            <div class="flex flex-wrap items-center gap-2">
+              <h3 class="font-display text-xl font-bold text-white flex items-center gap-2">
+                <i data-lucide="user-check" class="w-5 h-5 text-emerald-400"></i>
+                Padrones de Jugadores, Historial de Asistencias y Elegibilidad
+              </h3>
+              <span id="pubMinMatchesBadge" class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
+                Mínimo para Finales: 6 partidos
+              </span>
+            </div>
+            <p class="text-xs text-slate-400 mt-1">
+              Consulta de forma transparente cuántos partidos ha jugado cada futbolista, en qué jornadas asistió, si ya cumple el mínimo requerido para Liguilla/Finales y su conteo de tarjetas amarillas.
+            </p>
+          </div>
+
+          <!-- Filtros de Jugadores y Asistencias -->
+          <div class="flex flex-wrap items-center gap-2">
+            <div class="relative">
+              <i data-lucide="search" class="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2"></i>
+              <input id="pubPlayerSearchInput" type="text" oninput="renderPublicPlayersAndSuspensions()" placeholder="Buscar jugador..." class="pl-9 pr-3 py-2 rounded-xl bg-slate-900 border border-slate-700 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-emerald-500" />
+            </div>
+
+            <select id="pubPlayerTeamFilter" onchange="renderPublicPlayersAndSuspensions()" class="px-3 py-2 rounded-xl bg-slate-900 border border-slate-700 text-xs font-semibold text-slate-200 focus:outline-none focus:border-emerald-500">
+              <option value="all">Todos los Equipos</option>
+            </select>
+
+            <select id="pubPlayerStatusFilter" onchange="renderPublicPlayersAndSuspensions()" class="px-3 py-2 rounded-xl bg-slate-900 border border-slate-700 text-xs font-semibold text-slate-200 focus:outline-none focus:border-emerald-500">
+              <option value="all">Todos los Jugadores</option>
+              <option value="eligible">✅ Habilitados para Finales</option>
+              <option value="pending">⏳ En progreso de asistencias</option>
+              <option value="yellows">🟨 Con Tarjetas Amarillas</option>
+              <option value="suspended">🚫 Suspendidos Actualmente</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- KPIs de Asistencias y Elegibilidad -->
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+          <div class="glass-card rounded-xl p-3.5 border border-slate-800">
+            <div class="text-xs text-slate-400">Jugadores Registrados</div>
+            <div id="pubStatTotalPlayers" class="font-display text-xl font-bold text-white mt-0.5">0</div>
+          </div>
+          <div class="glass-card rounded-xl p-3.5 border border-emerald-500/30">
+            <div class="text-xs text-emerald-300">Habilitados para Finales</div>
+            <div id="pubStatEligiblePlayers" class="font-display text-xl font-bold text-emerald-400 mt-0.5">0</div>
+          </div>
+          <div class="glass-card rounded-xl p-3.5 border border-amber-500/30">
+            <div class="text-xs text-amber-300">En Capilla (2 Amarillas)</div>
+            <div id="pubStatCapillaPlayers" class="font-display text-xl font-bold text-amber-400 mt-0.5">0</div>
+          </div>
+          <div class="glass-card rounded-xl p-3.5 border border-rose-500/30">
+            <div class="text-xs text-rose-300">Suspendidos Activos</div>
+            <div id="pubStatSuspendedPlayers" class="font-display text-xl font-bold text-rose-400 mt-0.5">0</div>
+          </div>
+        </div>
+
+        <!-- Tabla Transparente de Asistencias por Jugador -->
+        <div class="glass-card rounded-2xl overflow-hidden border border-slate-800 shadow-xl">
+          <div class="overflow-x-auto custom-scrollbar">
+            <table class="w-full text-left border-collapse">
+              <thead>
+                <tr class="border-b border-slate-800 bg-slate-900/90 text-[11px] font-bold uppercase tracking-wider text-slate-400">
+                  <th class="py-3.5 pl-4 pr-2">Jugador</th>
+                  <th class="py-3.5 px-3">Equipo</th>
+                  <th class="py-3.5 px-3 text-center">Partidos Asistidos</th>
+                  <th class="py-3.5 px-3 min-w-[180px]">Progreso para Finales</th>
+                  <th class="py-3.5 px-3">Jornadas Jugadas</th>
+                  <th class="py-3.5 px-3 text-center">Tarjetas Amarillas</th>
+                  <th class="py-3.5 pl-2 pr-4 text-center">Estatus</th>
+                </tr>
+              </thead>
+              <tbody id="pubPlayersAttendanceTableBody" class="divide-y divide-slate-800/70 text-xs sm:text-sm">
+                <!-- Se llena dinámicamente -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- PESTAÑA NUEVA: JUGADORES SUSPENDIDOS Y CONTROL DISCIPLINARIO -->
+      <section id="pubTab-suspendidos" class="space-y-6 hidden">
+        <div class="glass-card rounded-2xl p-5 border border-rose-500/35 bg-gradient-to-r from-rose-950/30 via-slate-900/90 to-slate-900/90 flex flex-col md:flex-row md:items-center justify-between gap-4">
+          <div class="space-y-1">
+            <div class="flex flex-wrap items-center gap-2">
+              <span class="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-rose-500/20 text-rose-300 border border-rose-500/40">REPORTE OFICIAL DISCIPLINARIO</span>
+              <h3 class="font-display text-xl font-bold text-white flex items-center gap-2">
+                <i data-lucide="ban" class="w-5 h-5 text-rose-400"></i>
+                Jugadores Suspendidos (Inhabilitados para Jugar)
+              </h3>
+            </div>
+            <p class="text-xs text-slate-300 max-w-3xl leading-relaxed">
+              Reglamento Oficial: Todo jugador que acumule <strong>3 tarjetas amarillas</strong> recibe automáticamente <strong>1 partido de suspensión</strong>. También se listan aquí las sanciones directas reportadas en la cédula arbitral.
+            </p>
+          </div>
+          <div class="flex items-center gap-2 shrink-0">
+            <button type="button" onclick="exportSuspensionsWhatsApp()" class="flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-rose-500/20 hover:bg-rose-500/30 text-rose-200 border border-rose-500/40 text-xs font-bold transition-colors">
+              <i data-lucide="share-2" class="w-4 h-4"></i>
+              <span>Compartir Reporte por WhatsApp</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Lista de Jugadores Actualmente Suspendidos -->
+        <div class="space-y-3">
+          <h4 class="font-display text-sm font-bold uppercase tracking-wider text-rose-400 flex items-center gap-2">
+            <i data-lucide="alert-octagon" class="w-4 h-4"></i>
+            <span>Jugadores que NO pueden alinear en su próximo partido</span>
+          </h4>
+          <div id="pubSuspendedCardsGrid" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <!-- Tarjetas de suspendidos -->
+          </div>
+        </div>
+
+        <!-- Jugadores en Capilla (2 Tarjetas Amarillas) y Historial de Tarjetas -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 pt-2">
+          <div class="lg:col-span-5 space-y-3">
+            <h4 class="font-display text-sm font-bold uppercase tracking-wider text-amber-400 flex items-center gap-2">
+              <i data-lucide="alert-triangle" class="w-4 h-4"></i>
+              <span>Jugadores en Capilla (2 de 3 Amarillas)</span>
+            </h4>
+            <p class="text-xs text-slate-400">A una sola tarjeta amarilla de recibir suspensión automática de 1 partido:</p>
+            <div id="pubCapillaListContainer" class="space-y-2.5">
+              <!-- Lista en capilla -->
+            </div>
+          </div>
+
+          <div class="lg:col-span-7 space-y-3">
+            <h4 class="font-display text-sm font-bold uppercase tracking-wider text-slate-300 flex items-center gap-2">
+              <i data-lucide="file-spreadsheet" class="w-4 h-4 text-emerald-400"></i>
+              <span>Registro General de Tarjetas Amarillas Acumuladas</span>
+            </h4>
+            <p class="text-xs text-slate-400">Historial transparente de amonestaciones registradas en las cédulas de cada jornada:</p>
+            <div id="pubYellowCardsHistoryContainer" class="space-y-2.5">
+              <!-- Lista general de amarillas -->
+            </div>
+          </div>
+        </div>
+      </section>
+
       <!-- PESTAÑA 3: EQUIPOS Y ESCUDOS -->
       <section id="pubTab-equipos" class="space-y-5 hidden">
         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
@@ -572,23 +723,27 @@
 
         <!-- Sub-navegación del Administrador -->
         <div class="max-w-7xl mx-auto px-4 flex items-center gap-1 overflow-x-auto custom-scrollbar border-t border-slate-800 pt-1">
-          <button type="button" id="admTabBtn-resultados" onclick="switchAdminTab('resultados')" class="adm-tab-btn flex items-center gap-2 px-4 py-2.5 text-xs sm:text-sm font-bold border-b-2 border-indigo-400 text-indigo-400 whitespace-nowrap transition-all">
+          <button type="button" id="admTabBtn-resultados" onclick="switchAdminTab('resultados')" class="adm-tab-btn flex items-center gap-2 px-3.5 py-2.5 text-xs sm:text-sm font-bold border-b-2 border-indigo-400 text-indigo-400 whitespace-nowrap transition-all">
             <i data-lucide="check-circle-2" class="w-4 h-4"></i>
             <span>1. Capturar Resultados y Goles</span>
           </button>
-          <button type="button" id="admTabBtn-programacion" onclick="switchAdminTab('programacion')" class="adm-tab-btn flex items-center gap-2 px-4 py-2.5 text-xs sm:text-sm font-medium border-b-2 border-transparent text-slate-400 hover:text-white whitespace-nowrap transition-all">
+          <button type="button" id="admTabBtn-jugadores" onclick="switchAdminTab('jugadores')" class="adm-tab-btn flex items-center gap-2 px-3.5 py-2.5 text-xs sm:text-sm font-medium border-b-2 border-transparent text-slate-400 hover:text-white whitespace-nowrap transition-all">
+            <i data-lucide="users" class="w-4 h-4"></i>
+            <span>6. Jugadores, Asistencias y Sanciones</span>
+          </button>
+          <button type="button" id="admTabBtn-programacion" onclick="switchAdminTab('programacion')" class="adm-tab-btn flex items-center gap-2 px-3.5 py-2.5 text-xs sm:text-sm font-medium border-b-2 border-transparent text-slate-400 hover:text-white whitespace-nowrap transition-all">
             <i data-lucide="calendar-plus" class="w-4 h-4"></i>
             <span>2. Programar Calendario y Estadios</span>
           </button>
-          <button type="button" id="admTabBtn-clubes" onclick="switchAdminTab('clubes')" class="adm-tab-btn flex items-center gap-2 px-4 py-2.5 text-xs sm:text-sm font-medium border-b-2 border-transparent text-slate-400 hover:text-white whitespace-nowrap transition-all">
+          <button type="button" id="admTabBtn-clubes" onclick="switchAdminTab('clubes')" class="adm-tab-btn flex items-center gap-2 px-3.5 py-2.5 text-xs sm:text-sm font-medium border-b-2 border-transparent text-slate-400 hover:text-white whitespace-nowrap transition-all">
             <i data-lucide="shield-plus" class="w-4 h-4"></i>
             <span>3. Equipos y Escudos</span>
           </button>
-          <button type="button" id="admTabBtn-push" onclick="switchAdminTab('push')" class="adm-tab-btn flex items-center gap-2 px-4 py-2.5 text-xs sm:text-sm font-medium border-b-2 border-transparent text-slate-400 hover:text-white whitespace-nowrap transition-all">
+          <button type="button" id="admTabBtn-push" onclick="switchAdminTab('push')" class="adm-tab-btn flex items-center gap-2 px-3.5 py-2.5 text-xs sm:text-sm font-medium border-b-2 border-transparent text-slate-400 hover:text-white whitespace-nowrap transition-all">
             <i data-lucide="megaphone" class="w-4 h-4"></i>
             <span>4. Enviar Notificaciones Push</span>
           </button>
-          <button type="button" id="admTabBtn-ajustes" onclick="switchAdminTab('ajustes')" class="adm-tab-btn flex items-center gap-2 px-4 py-2.5 text-xs sm:text-sm font-medium border-b-2 border-transparent text-slate-400 hover:text-white whitespace-nowrap transition-all">
+          <button type="button" id="admTabBtn-ajustes" onclick="switchAdminTab('ajustes')" class="adm-tab-btn flex items-center gap-2 px-3.5 py-2.5 text-xs sm:text-sm font-medium border-b-2 border-transparent text-slate-400 hover:text-white whitespace-nowrap transition-all">
             <i data-lucide="settings" class="w-4 h-4"></i>
             <span>5. Liga, Firebase & Respaldos</span>
           </button>
@@ -623,6 +778,159 @@
 
           <div id="adminResultsListContainer" class="grid grid-cols-1 lg:grid-cols-2 gap-4">
             <!-- Tarjetas editables de resultados -->
+          </div>
+        </section>
+
+        <!-- ADMIN TAB NUEVA: GESTOR DE JUGADORES POR EQUIPO, ASISTENCIAS Y SUSPENSIONES -->
+        <section id="admTab-jugadores" class="space-y-6 hidden">
+          <!-- Barra Superior de Regla de Elegibilidad y Resumen -->
+          <div class="glass-card rounded-2xl p-4 sm:p-5 border border-indigo-500/30 flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+            <div class="space-y-1">
+              <h3 class="font-display text-lg font-bold text-white flex items-center gap-2">
+                <i data-lucide="users" class="w-5 h-5 text-emerald-400"></i>
+                Administración Permanente de Jugadores, Asistencias y Suspensiones
+              </h3>
+              <p class="text-xs text-slate-300">
+                Registra o actualiza el padrón de jugadores de cada club. Las asistencias y tarjetas se marcan en cada encuentro desde <strong>"1. Marcadores, Asistencias y Cédulas"</strong> (botón <em>📋 Cédula, Asistencias y Tarjetas</em>).
+              </p>
+            </div>
+            <div class="flex flex-wrap items-center gap-3 bg-slate-900/90 p-3 rounded-xl border border-slate-800 shrink-0">
+              <div>
+                <label for="admMinMatchesInput" class="block text-[11px] font-bold text-emerald-400">Mínimo Partidos para Finales</label>
+                <span class="text-[10px] text-slate-400">Requisito de elegibilidad en Liguilla</span>
+              </div>
+              <input id="admMinMatchesInput" type="number" min="1" max="30" value="6" class="w-16 px-2.5 py-1.5 rounded-lg bg-slate-950 border border-slate-700 text-center font-display font-bold text-sm text-white" />
+              <button type="button" onclick="saveMinMatchesRequirement()" class="px-3 py-1.5 rounded-lg bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-xs transition-all">
+                Guardar Regla
+              </button>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+            <!-- Columna Izquierda: Alta Individual, Carga Masiva y Sanción Manual -->
+            <div class="lg:col-span-5 space-y-5">
+              <!-- Formulario Individual de Jugador -->
+              <div class="glass-card rounded-2xl p-5 border border-slate-800 space-y-4">
+                <div class="flex items-center justify-between">
+                  <h4 id="admPlayerFormTitle" class="font-display text-base font-bold text-white flex items-center gap-2">
+                    <i data-lucide="user-plus" class="w-4 h-4 text-emerald-400"></i>
+                    <span>Registrar / Editar Jugador</span>
+                  </h4>
+                  <button type="button" onclick="resetAdminPlayerForm()" class="text-xs text-slate-400 hover:text-white">Limpiar</button>
+                </div>
+
+                <form onsubmit="savePlayerFromAdmin(event)" class="space-y-3">
+                  <input type="hidden" id="admEditPlayerId" value="" />
+                  <div>
+                    <label for="admPlayerTeamSelect" class="block text-xs font-semibold text-slate-300 mb-1">Equipo del Jugador</label>
+                    <select id="admPlayerTeamSelect" required onchange="syncAdminRosterFilterWithSelect()" class="w-full px-3 py-2 rounded-xl bg-slate-900 border border-slate-700 text-xs font-semibold text-white focus:border-emerald-500 focus:outline-none"></select>
+                  </div>
+
+                  <div class="grid grid-cols-4 gap-2.5">
+                    <div class="col-span-3">
+                      <label for="admPlayerNameInput" class="block text-xs font-semibold text-slate-300 mb-1">Nombre Completo del Jugador</label>
+                      <input id="admPlayerNameInput" type="text" required placeholder="Ej. Juan Carlos Ramírez López" class="w-full px-3 py-2 rounded-xl bg-slate-900 border border-slate-700 text-xs text-white focus:border-emerald-500 focus:outline-none" />
+                    </div>
+                    <div>
+                      <label for="admPlayerNumberInput" class="block text-xs font-semibold text-slate-300 mb-1">Dorsal #</label>
+                      <input id="admPlayerNumberInput" type="text" maxlength="4" placeholder="10" class="w-full px-2.5 py-2 rounded-xl bg-slate-900 border border-slate-700 text-xs text-center text-white focus:border-emerald-500 focus:outline-none" />
+                    </div>
+                  </div>
+
+                  <button type="submit" class="w-full py-2.5 px-4 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-xs shadow-lg shadow-emerald-500/20 transition-all flex items-center justify-center gap-2">
+                    <i data-lucide="save" class="w-4 h-4"></i>
+                    <span id="admPlayerSubmitText">Guardar Jugador en el Equipo</span>
+                  </button>
+                </form>
+
+                <!-- Carga Masiva por Lista (Pegar desde WhatsApp / Excel) -->
+                <div class="pt-4 border-t border-slate-800 space-y-2.5">
+                  <div class="flex items-center justify-between">
+                    <label for="admBulkPlayersTextarea" class="text-xs font-bold text-indigo-300 flex items-center gap-1.5">
+                      <i data-lucide="list-plus" class="w-4 h-4"></i>
+                      <span>Carga Masiva Rápida (Pegar Lista)</span>
+                    </label>
+                    <span class="text-[10px] text-slate-400">1 jugador por renglón</span>
+                  </div>
+                  <p class="text-[11px] text-slate-400 leading-snug">
+                    Pega la lista de nombres completos del equipo seleccionado arriba (puedes escribir solo el nombre o <code class="text-slate-200">10 - Nombre Completo</code>):
+                  </p>
+                  <textarea id="admBulkPlayersTextarea" rows="4" placeholder="1 - Roberto Hernández Gómez&#10;4 - Miguel Ángel Torres&#10;10 - Luis Fernando Morales" class="w-full px-3 py-2 rounded-xl bg-slate-900 border border-slate-700 text-xs text-white placeholder-slate-500 focus:border-indigo-500 focus:outline-none"></textarea>
+                  <button type="button" onclick="bulkAddPlayersToTeam()" class="w-full py-2 px-3 rounded-xl bg-indigo-600/90 hover:bg-indigo-500 text-white font-bold text-xs transition-all flex items-center justify-center gap-1.5">
+                    <i data-lucide="upload" class="w-3.5 h-3.5"></i>
+                    <span>Cargar Todos a la Plantilla del Equipo</span>
+                  </button>
+                </div>
+              </div>
+
+              <!-- Panel de Sanción Manual / Directa -->
+              <div class="glass-card rounded-2xl p-5 border border-rose-500/30 space-y-3.5">
+                <h4 class="font-display text-base font-bold text-white flex items-center gap-2">
+                  <i data-lucide="shield-alert" class="w-4 h-4 text-rose-400"></i>
+                  <span>Aplicar Suspensión Directa / Extraordinaria</span>
+                </h4>
+                <p class="text-[11px] text-slate-400 leading-relaxed">
+                  Las suspensiones por <strong>3 tarjetas amarillas</strong> se generan automáticamente. Usa este panel si necesitas suspender a un jugador por tarjeta roja directa, reporte arbitral o sanción administrativa:
+                </p>
+                <div class="space-y-2.5">
+                  <div>
+                    <label for="admManualSuspPlayerSelect" class="block text-xs font-semibold text-slate-300 mb-1">Seleccionar Jugador</label>
+                    <select id="admManualSuspPlayerSelect" class="w-full px-3 py-2 rounded-xl bg-slate-900 border border-slate-700 text-xs text-white"></select>
+                  </div>
+                  <div class="grid grid-cols-3 gap-2.5">
+                    <div class="col-span-2">
+                      <label for="admManualSuspReason" class="block text-xs font-semibold text-slate-300 mb-1">Motivo de la Suspensión</label>
+                      <input id="admManualSuspReason" type="text" placeholder="Ej. Roja directa / Conducta antideportiva" class="w-full px-3 py-2 rounded-xl bg-slate-900 border border-slate-700 text-xs text-white" />
+                    </div>
+                    <div>
+                      <label for="admManualSuspGames" class="block text-xs font-semibold text-slate-300 mb-1">Partidos</label>
+                      <input id="admManualSuspGames" type="number" min="1" max="20" value="1" class="w-full px-2.5 py-2 rounded-xl bg-slate-900 border border-slate-700 text-xs text-center text-white" />
+                    </div>
+                  </div>
+                  <button type="button" onclick="applyManualPlayerSuspension()" class="w-full py-2 px-3 rounded-xl bg-rose-600 hover:bg-rose-500 text-white font-bold text-xs transition-all flex items-center justify-center gap-1.5">
+                    <i data-lucide="ban" class="w-3.5 h-3.5"></i>
+                    <span>Registrar Suspensión Oficial</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Columna Derecha: Suspendidos Activos y Plantilla Completa por Equipo -->
+            <div class="lg:col-span-7 space-y-5">
+              <!-- Control Rápido de Suspendidos Activos -->
+              <div class="glass-card rounded-2xl p-4 sm:p-5 border border-rose-500/30 space-y-3">
+                <div class="flex items-center justify-between">
+                  <h4 class="font-display text-base font-bold text-white flex items-center gap-2">
+                    <i data-lucide="alert-octagon" class="w-4 h-4 text-rose-400"></i>
+                    <span>Jugadores Suspendidos Actualmente</span>
+                  </h4>
+                  <span id="admSuspendedCountLabel" class="px-2 py-0.5 rounded-full text-[11px] font-bold bg-rose-500/20 text-rose-300 border border-rose-500/30">0 suspendidos</span>
+                </div>
+                <div id="admActiveSuspensionsList" class="space-y-2">
+                  <!-- Lista de suspendidos con botón para marcar sanción cumplida -->
+                </div>
+              </div>
+
+              <!-- Listado y Buscador de Plantillas en Admin -->
+              <div class="glass-card rounded-2xl p-4 sm:p-5 border border-slate-800 space-y-4">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                  <div>
+                    <h4 class="font-display text-base font-bold text-white">Padrón de Jugadores por Equipo</h4>
+                    <span id="admRosterCountLabel" class="text-xs text-slate-400">0 jugadores registrados</span>
+                  </div>
+                  <div class="flex flex-wrap items-center gap-2">
+                    <select id="admRosterFilterTeam" onchange="renderAdminPlayersSection()" class="px-3 py-1.5 rounded-xl bg-slate-900 border border-slate-700 text-xs font-semibold text-white">
+                      <option value="all">Todos los Equipos</option>
+                    </select>
+                    <input id="admRosterSearchInput" type="text" oninput="renderAdminPlayersSection()" placeholder="Buscar nombre..." class="px-3 py-1.5 rounded-xl bg-slate-900 border border-slate-700 text-xs text-white placeholder-slate-500" />
+                  </div>
+                </div>
+
+                <div id="admPlayersRosterContainer" class="space-y-2 max-h-[540px] overflow-y-auto custom-scrollbar pr-1">
+                  <!-- Filas de jugadores en admin -->
+                </div>
+              </div>
+            </div>
           </div>
         </section>
 
@@ -1093,6 +1401,130 @@ service cloud.firestore {
   </div>
 
   <!-- ========================================================================= -->
+  <!-- MODAL NUEVO A: CAPTURA ADMIN DE CÉDULA (DRIVE), ASISTENCIAS Y TARJETAS    -->
+  <!-- ========================================================================= -->
+  <div id="adminMatchSheetModal" class="fixed inset-0 z-50 bg-slate-950/85 backdrop-blur-sm hidden items-center justify-center p-2 sm:p-4">
+    <div class="glass-card max-w-5xl w-full rounded-2xl p-4 sm:p-6 border border-indigo-500/40 shadow-2xl space-y-5 max-h-[94vh] overflow-y-auto custom-scrollbar">
+      <div class="flex items-start justify-between gap-3 border-b border-slate-800 pb-3.5">
+        <div>
+          <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-indigo-500/20 text-indigo-300 border border-indigo-500/30">CONTROL OFICIAL DE ENCUENTRO</span>
+          <h3 id="admMatchSheetTitle" class="font-display font-extrabold text-lg sm:text-xl text-white mt-1">Cédula, Asistencias y Tarjetas del Partido</h3>
+          <p id="admMatchSheetSubtitle" class="text-xs text-slate-400">Marca los jugadores que asistieron, registra tarjetas amarillas y pega el link de Google Drive de la cédula.</p>
+        </div>
+        <button type="button" onclick="closeAdminMatchSheetModal()" class="p-2 rounded-xl bg-slate-800 text-slate-400 hover:text-white shrink-0">
+          <i data-lucide="x" class="w-4 h-4"></i>
+        </button>
+      </div>
+
+      <input type="hidden" id="admSheetMatchId" value="" />
+
+      <!-- Paso 1: Foto / Imagen de la Cédula vía URL de Google Drive -->
+      <div class="p-4 rounded-2xl bg-slate-900/90 border border-slate-800 space-y-3">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+          <div>
+            <h4 class="font-display font-bold text-sm text-emerald-400 flex items-center gap-2">
+              <i data-lucide="file-image" class="w-4 h-4"></i>
+              <span>1. Imagen de la Cédula / Acta del Partido (Enlace de Google Drive)</span>
+            </h4>
+            <p class="text-[11px] text-slate-400 mt-0.5">
+              Sube la foto de la cédula a Google Drive, ponla en <strong>"Cualquier persona con el enlace"</strong> y pega aquí el link. El sistema lo convierte automáticamente para que todos la vean en la app.
+            </p>
+          </div>
+          <button type="button" onclick="previewAdminCedulaDriveUrl()" class="px-3 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-emerald-300 border border-slate-700 text-xs font-semibold shrink-0">
+            Probar Vista Previa
+          </button>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+          <div class="md:col-span-2">
+            <label for="admSheetCedulaUrl" class="block text-[11px] font-semibold text-slate-300 mb-1">URL de Google Drive o Enlace Directo de Imagen</label>
+            <input id="admSheetCedulaUrl" type="url" oninput="previewAdminCedulaDriveUrl()" placeholder="https://drive.google.com/file/d/1A2B3C4D5E6F.../view?usp=sharing" class="w-full px-3.5 py-2 rounded-xl bg-slate-950 border border-slate-700 text-xs text-white placeholder-slate-500 focus:border-emerald-500 focus:outline-none" />
+          </div>
+          <div>
+            <label for="admSheetCedulaNotes" class="block text-[11px] font-semibold text-slate-300 mb-1">Observaciones Arbitrales (Opcional)</label>
+            <input id="admSheetCedulaNotes" type="text" placeholder="Ej. Partido sin incidentes / Capitán firmó" class="w-full px-3.5 py-2 rounded-xl bg-slate-950 border border-slate-700 text-xs text-white placeholder-slate-500 focus:border-emerald-500 focus:outline-none" />
+          </div>
+        </div>
+
+        <!-- Contenedor de Vista Previa Instantánea de la Cédula en Admin -->
+        <div id="admSheetCedulaPreviewBox" class="hidden pt-2"></div>
+      </div>
+
+      <!-- Paso 2: Asistencias y Tarjetas Amarillas de Ambos Equipos -->
+      <div class="space-y-2">
+        <div class="flex flex-wrap items-center justify-between gap-2">
+          <h4 class="font-display font-bold text-sm text-white flex items-center gap-2">
+            <i data-lucide="user-check" class="w-4 h-4 text-indigo-400"></i>
+            <span>2. Registro de Asistencia y Tarjetas por Jugador</span>
+          </h4>
+          <span class="text-[11px] text-amber-300">
+            💡 Al acumular <strong>3 tarjetas amarillas</strong> en el torneo, el jugador queda suspendido automáticamente 1 partido.
+          </span>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+          <!-- Columna Equipo Local -->
+          <div class="p-4 rounded-2xl bg-slate-900/90 border border-slate-800 space-y-3">
+            <div class="flex items-center justify-between border-b border-slate-800 pb-2.5">
+              <div id="admSheetHomeHeader" class="flex items-center gap-2.5"></div>
+              <div class="flex items-center gap-1.5">
+                <button type="button" onclick="toggleAllTeamAttendanceInModal('home', true)" class="px-2 py-1 rounded-lg bg-emerald-500/15 hover:bg-emerald-500/25 text-emerald-300 text-[10px] font-bold">Marcar Todos</button>
+                <button type="button" onclick="toggleAllTeamAttendanceInModal('home', false)" class="px-2 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 text-[10px] font-semibold">Limpiar</button>
+              </div>
+            </div>
+
+            <!-- Alta rápida de jugador local desde la cédula -->
+            <div class="flex items-center gap-1.5">
+              <input id="quickAddHomePlayerName" type="text" placeholder="+ Agregar jugador a este equipo (Nombre completo)..." class="flex-1 px-2.5 py-1.5 rounded-lg bg-slate-950 border border-slate-700 text-xs text-white placeholder-slate-500" />
+              <button type="button" onclick="quickAddPlayerFromMatchModal('home')" class="px-2.5 py-1.5 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold shrink-0">+ Añadir</button>
+            </div>
+
+            <div id="admSheetHomePlayersList" class="space-y-1.5 max-h-80 overflow-y-auto custom-scrollbar pr-1"></div>
+          </div>
+
+          <!-- Columna Equipo Visitante -->
+          <div class="p-4 rounded-2xl bg-slate-900/90 border border-slate-800 space-y-3">
+            <div class="flex items-center justify-between border-b border-slate-800 pb-2.5">
+              <div id="admSheetAwayHeader" class="flex items-center gap-2.5"></div>
+              <div class="flex items-center gap-1.5">
+                <button type="button" onclick="toggleAllTeamAttendanceInModal('away', true)" class="px-2 py-1 rounded-lg bg-emerald-500/15 hover:bg-emerald-500/25 text-emerald-300 text-[10px] font-bold">Marcar Todos</button>
+                <button type="button" onclick="toggleAllTeamAttendanceInModal('away', false)" class="px-2 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 text-[10px] font-semibold">Limpiar</button>
+              </div>
+            </div>
+
+            <!-- Alta rápida de jugador visitante desde la cédula -->
+            <div class="flex items-center gap-1.5">
+              <input id="quickAddAwayPlayerName" type="text" placeholder="+ Agregar jugador a este equipo (Nombre completo)..." class="flex-1 px-2.5 py-1.5 rounded-lg bg-slate-950 border border-slate-700 text-xs text-white placeholder-slate-500" />
+              <button type="button" onclick="quickAddPlayerFromMatchModal('away')" class="px-2.5 py-1.5 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold shrink-0">+ Añadir</button>
+            </div>
+
+            <div id="admSheetAwayPlayersList" class="space-y-1.5 max-h-80 overflow-y-auto custom-scrollbar pr-1"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="flex flex-wrap items-center justify-between gap-3 pt-3 border-t border-slate-800">
+        <button type="button" onclick="closeAdminMatchSheetModal()" class="px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-semibold">
+          Cancelar
+        </button>
+        <button type="button" onclick="saveAdminMatchSheetModal()" class="px-6 py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-extrabold text-xs sm:text-sm shadow-lg shadow-emerald-500/25 flex items-center gap-2">
+          <i data-lucide="check-circle-2" class="w-4 h-4"></i>
+          <span>Guardar Cédula, Asistencias y Tarjetas</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================================= -->
+  <!-- MODAL NUEVO B: VISOR PÚBLICO DE CÉDULA OFICIAL, ASISTENCIAS Y TARJETAS    -->
+  <!-- ========================================================================= -->
+  <div id="publicMatchSheetModal" class="fixed inset-0 z-50 bg-slate-950/85 backdrop-blur-sm hidden items-center justify-center p-2 sm:p-4">
+    <div class="glass-card max-w-4xl w-full rounded-2xl p-4 sm:p-6 border border-emerald-500/35 shadow-2xl space-y-5 max-h-[94vh] overflow-y-auto custom-scrollbar">
+      <div id="publicMatchSheetModalBody"></div>
+    </div>
+  </div>
+
+  <!-- ========================================================================= -->
   <!-- MODAL 3: DETALLE DE CLUB / HISTORIAL DE PARTIDOS DEL EQUIPO               -->
   <!-- ========================================================================= -->
   <div id="teamDetailModal" class="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm hidden items-center justify-center p-4">
@@ -1328,7 +1760,7 @@ service cloud.firestore {
                 }
 
                 isApplyingRemoteUpdate = true;
-                appState = remoteData;
+                appState = ensureAppStateSchema(remoteData);
                 try {
                   localStorage.setItem(STORAGE_KEY, JSON.stringify(appState));
                 } catch (e) {}
@@ -1427,8 +1859,10 @@ service cloud.firestore {
           seasonName: 'Calendario Oficial · Temporada 2026-2027 (7 Equipos · 14 Jornadas)',
           adminPin: '2026',
           currentMatchday: 1,
+          minMatchesForFinals: 6,
           firebaseProjectName: 'app-fut-ee0b6'
         },
+        players: [],
         teams: [
           {
             id: 't1',
@@ -1602,16 +2036,45 @@ service cloud.firestore {
 
     let appState = loadAppState();
 
+    function ensureAppStateSchema(state) {
+      if (!state || typeof state !== 'object') return getInitialDemoState();
+      if (!state.settings) state.settings = {};
+      if (!state.settings.minMatchesForFinals) {
+        state.settings.minMatchesForFinals = 6;
+      } else {
+        state.settings.minMatchesForFinals = Number(state.settings.minMatchesForFinals) || 6;
+      }
+      if (!Array.isArray(state.players)) {
+        state.players = [];
+      }
+      state.players.forEach(p => {
+        if (typeof p.servedCycles !== 'number') p.servedCycles = 0;
+        if (typeof p.manualSuspended !== 'boolean') p.manualSuspended = false;
+        if (typeof p.manualSuspensionReason !== 'string') p.manualSuspensionReason = '';
+        if (typeof p.manualSuspensionMatches !== 'number') p.manualSuspensionMatches = 1;
+      });
+      if (!Array.isArray(state.matches)) state.matches = [];
+      state.matches.forEach(m => {
+        if (!Array.isArray(m.attendance)) m.attendance = [];
+        if (!Array.isArray(m.yellowCards)) m.yellowCards = [];
+        if (!Array.isArray(m.directSuspensions)) m.directSuspensions = [];
+        if (typeof m.cedulaUrl !== 'string') m.cedulaUrl = '';
+        if (typeof m.cedulaNotes !== 'string') m.cedulaNotes = '';
+      });
+      if (!Array.isArray(state.notifications)) state.notifications = [];
+      return state;
+    }
+
     function loadAppState() {
       try {
         const saved = localStorage.getItem(STORAGE_KEY);
         if (saved) {
-          return JSON.parse(saved);
+          return ensureAppStateSchema(JSON.parse(saved));
         }
       } catch (e) {
         console.warn('Error leyendo localStorage:', e);
       }
-      return getInitialDemoState();
+      return ensureAppStateSchema(getInitialDemoState());
     }
 
     function saveAppState() {
@@ -2000,31 +2463,32 @@ service cloud.firestore {
 
     function switchPublicTab(tab) {
       currentPublicTab = tab;
-      ['tabla', 'calendario', 'equipos', 'notificaciones'].forEach(t => {
+      ['tabla', 'calendario', 'jugadores', 'suspendidos', 'equipos', 'notificaciones'].forEach(t => {
         const sec = document.getElementById(`pubTab-${t}`);
         const btn = document.getElementById(`pubTabBtn-${t}`);
         if (sec) sec.classList.toggle('hidden', t !== tab);
         if (btn) {
           btn.className = (t === tab)
-            ? 'pub-tab-btn flex items-center gap-2 px-4 py-2.5 text-xs sm:text-sm font-bold border-b-2 border-emerald-400 text-emerald-400 whitespace-nowrap transition-all'
-            : 'pub-tab-btn flex items-center gap-2 px-4 py-2.5 text-xs sm:text-sm font-medium border-b-2 border-transparent text-slate-400 hover:text-slate-200 whitespace-nowrap transition-all';
+            ? 'pub-tab-btn flex items-center justify-center sm:justify-start gap-1.5 sm:gap-2 px-2.5 sm:px-3.5 py-2 sm:py-2.5 text-xs sm:text-sm font-bold border-b-2 border-emerald-400 text-emerald-400 whitespace-nowrap transition-all'
+            : 'pub-tab-btn flex items-center justify-center sm:justify-start gap-1.5 sm:gap-2 px-2.5 sm:px-3.5 py-2 sm:py-2.5 text-xs sm:text-sm font-medium border-b-2 border-transparent text-slate-400 hover:text-slate-200 whitespace-nowrap transition-all';
         }
       });
       if (tab === 'notificaciones') {
         markAllNotificationsRead(true);
       }
+      renderAll();
     }
 
     function switchAdminTab(tab) {
       currentAdminTab = tab;
-      ['resultados', 'programacion', 'clubes', 'push', 'ajustes'].forEach(t => {
+      ['resultados', 'jugadores', 'programacion', 'clubes', 'push', 'ajustes'].forEach(t => {
         const sec = document.getElementById(`admTab-${t}`);
         const btn = document.getElementById(`admTabBtn-${t}`);
         if (sec) sec.classList.toggle('hidden', t !== tab);
         if (btn) {
           btn.className = (t === tab)
-            ? 'adm-tab-btn flex items-center gap-2 px-4 py-2.5 text-xs sm:text-sm font-bold border-b-2 border-indigo-400 text-indigo-400 whitespace-nowrap transition-all'
-            : 'adm-tab-btn flex items-center gap-2 px-4 py-2.5 text-xs sm:text-sm font-medium border-b-2 border-transparent text-slate-400 hover:text-white whitespace-nowrap transition-all';
+            ? 'adm-tab-btn flex items-center gap-2 px-3.5 py-2.5 text-xs sm:text-sm font-bold border-b-2 border-indigo-400 text-indigo-400 whitespace-nowrap transition-all'
+            : 'adm-tab-btn flex items-center gap-2 px-3.5 py-2.5 text-xs sm:text-sm font-medium border-b-2 border-transparent text-slate-400 hover:text-white whitespace-nowrap transition-all';
         }
       });
       renderAll();
@@ -2053,15 +2517,18 @@ service cloud.firestore {
         ? 'px-1.5 py-0.5 text-[10px] font-bold bg-rose-500 text-white rounded-full'
         : 'px-1.5 py-0.5 text-[10px] font-bold bg-slate-700 text-slate-300 rounded-full';
 
+      ensureAppStateSchema(appState);
       populateFiltersAndSelects();
       renderFeaturedAndTicker();
       renderStandings(standings);
       renderPublicSchedule();
+      renderPublicPlayersAndSuspensions();
       renderPublicTeams(standings);
       renderNotifications();
 
       if (isAdminAuthenticated) {
         renderAdminResultsList();
+        renderAdminPlayersSection();
         renderAdminScheduleList();
         renderAdminTeamsList(standings);
         renderAdminSettingsFields();
@@ -2121,6 +2588,43 @@ service cloud.firestore {
         pushTeamSel.innerHTML = '<option value="all">Toda la Liga</option>' +
           appState.teams.map(t => `<option value="${t.id}">${escapeHtml(t.name)}</option>`).join('');
         pushTeamSel.value = prevP;
+      }
+
+      // Selects de Equipos para Jugadores (Público y Admin)
+      const pubPlTeam = document.getElementById('pubPlayerTeamFilter');
+      if (pubPlTeam) {
+        const prev = pubPlTeam.value || 'all';
+        pubPlTeam.innerHTML = '<option value="all">Todos los Equipos</option>' +
+          appState.teams.map(t => `<option value="${t.id}">${escapeHtml(t.name)}</option>`).join('');
+        if ([...pubPlTeam.options].some(o => o.value === prev)) pubPlTeam.value = prev;
+      }
+
+      const admPlTeam = document.getElementById('admPlayerTeamSelect');
+      if (admPlTeam && appState.teams.length > 0) {
+        const prev = admPlTeam.value || appState.teams[0].id;
+        admPlTeam.innerHTML = appState.teams.map(t => `<option value="${t.id}">${escapeHtml(t.name)}</option>`).join('');
+        if (appState.teams.some(t => t.id === prev)) admPlTeam.value = prev;
+      }
+
+      const admRosterFilter = document.getElementById('admRosterFilterTeam');
+      if (admRosterFilter) {
+        const prev = admRosterFilter.value || 'all';
+        admRosterFilter.innerHTML = '<option value="all">Todos los Equipos</option>' +
+          appState.teams.map(t => `<option value="${t.id}">${escapeHtml(t.name)}</option>`).join('');
+        if ([...admRosterFilter.options].some(o => o.value === prev)) admRosterFilter.value = prev;
+      }
+
+      const admSuspSel = document.getElementById('admManualSuspPlayerSelect');
+      if (admSuspSel) {
+        const prev = admSuspSel.value || '';
+        const sortedPlayers = [...(appState.players || [])].sort((a, b) => a.fullName.localeCompare(b.fullName));
+        admSuspSel.innerHTML = sortedPlayers.length === 0
+          ? '<option value="">Registra jugadores primero...</option>'
+          : sortedPlayers.map(p => {
+              const t = getTeamById(p.teamId);
+              return `<option value="${p.id}">${escapeHtml(p.fullName)} (${escapeHtml(t ? t.name : 'Club')})</option>`;
+            }).join('');
+        if (prev && sortedPlayers.some(p => p.id === prev)) admSuspSel.value = prev;
       }
     }
 
@@ -2391,13 +2895,21 @@ service cloud.firestore {
             </div>
 
             <div class="pt-2.5 border-t border-slate-800/80 flex flex-wrap items-center justify-between gap-2 text-[11px] text-slate-400">
-              <div class="flex items-center gap-1.5 text-slate-300">
-                <i data-lucide="map-pin" class="w-3.5 h-3.5 text-emerald-400"></i>
-                <span>${escapeHtml(m.stadium)}</span>
+              <div class="flex flex-wrap items-center gap-2 text-slate-300">
+                <span class="flex items-center gap-1">
+                  <i data-lucide="map-pin" class="w-3.5 h-3.5 text-emerald-400"></i>
+                  <span>${escapeHtml(m.stadium)}</span>
+                </span>
+                ${(m.cedulaUrl && m.cedulaUrl.trim() !== '') ? `<span class="px-2 py-0.5 rounded-md bg-emerald-500/15 text-emerald-300 border border-emerald-500/30 text-[10px] font-bold">📄 Cédula Disponible</span>` : ''}
+                ${(Array.isArray(m.attendance) && m.attendance.length > 0) ? `<span class="px-2 py-0.5 rounded-md bg-indigo-500/15 text-indigo-300 border border-indigo-500/30 text-[10px] font-semibold">👥 ${m.attendance.length} asistencias</span>` : ''}
+                ${(Array.isArray(m.yellowCards) && m.yellowCards.length > 0) ? `<span class="px-2 py-0.5 rounded-md bg-amber-500/15 text-amber-300 border border-amber-500/30 text-[10px] font-semibold">🟨 ${m.yellowCards.length}</span>` : ''}
               </div>
-              <div class="flex items-center gap-3">
-                <span>${escapeHtml(m.referee || 'Rol Oficial')}</span>
-                <button type="button" onclick="subscribeMatchAlert('${m.id}')" class="text-emerald-400 hover:underline font-semibold">🔔 Alerta</button>
+              <div class="flex items-center gap-2">
+                <button type="button" onclick="openPublicMatchSheetModal('${m.id}')" class="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 font-bold text-[11px] flex items-center gap-1 transition-colors">
+                  <i data-lucide="file-text" class="w-3.5 h-3.5"></i>
+                  <span>Ver Cédula y Asistencias</span>
+                </button>
+                <button type="button" onclick="subscribeMatchAlert('${m.id}')" class="text-slate-300 hover:text-emerald-400 font-semibold" title="Recibir alerta">🔔</button>
               </div>
             </div>
           </div>
@@ -2442,9 +2954,9 @@ service cloud.firestore {
             </div>
 
             <div class="flex items-center justify-between text-xs pt-1">
-              <span class="text-slate-400 truncate flex items-center gap-1">
-                <i data-lucide="map-pin" class="w-3.5 h-3.5 text-emerald-400 shrink-0"></i>
-                <span class="truncate">${escapeHtml(t.stadium)}</span>
+              <span class="text-slate-300 truncate flex items-center gap-1.5">
+                <i data-lucide="users" class="w-3.5 h-3.5 text-emerald-400 shrink-0"></i>
+                <span class="font-semibold">${(appState.players || []).filter(p => p.teamId === t.id).length} jugadores</span>
               </span>
               <button type="button" onclick="openTeamDetailModal('${t.id}')" class="text-emerald-400 hover:text-emerald-300 font-semibold shrink-0 ml-2">
                 Ver juegos →
@@ -2544,14 +3056,24 @@ service cloud.firestore {
               </div>
             </div>
 
-            <!-- Estado del Partido y Guardado Rápido -->
-            <div class="pt-2.5 border-t border-slate-800 flex flex-wrap items-center justify-between gap-2">
-              <div class="flex items-center gap-1.5">
-                <button type="button" onclick="updateMatchStatus('${m.id}', 'scheduled')" class="px-2.5 py-1 rounded-lg text-[11px] font-semibold ${m.status === 'scheduled' ? 'bg-amber-500 text-slate-950 font-bold' : 'bg-slate-900 text-slate-400 hover:text-white'}">Programado</button>
-                <button type="button" onclick="updateMatchStatus('${m.id}', 'live')" class="px-2.5 py-1 rounded-lg text-[11px] font-semibold ${m.status === 'live' ? 'bg-rose-500 text-white font-bold' : 'bg-slate-900 text-slate-400 hover:text-white'}">🔴 En Vivo</button>
-                <button type="button" onclick="updateMatchStatus('${m.id}', 'finished')" class="px-2.5 py-1 rounded-lg text-[11px] font-semibold ${m.status === 'finished' ? 'bg-emerald-500 text-slate-950 font-bold' : 'bg-slate-900 text-slate-400 hover:text-white'}">✅ Finalizado</button>
+            <!-- Estado del Partido, Asistencias, Tarjetas y Cédula -->
+            <div class="pt-2.5 border-t border-slate-800 space-y-2.5">
+              <div class="flex flex-wrap items-center justify-between gap-2">
+                <div class="flex items-center gap-1.5">
+                  <button type="button" onclick="updateMatchStatus('${m.id}', 'scheduled')" class="px-2.5 py-1 rounded-lg text-[11px] font-semibold ${m.status === 'scheduled' ? 'bg-amber-500 text-slate-950 font-bold' : 'bg-slate-900 text-slate-400 hover:text-white'}">Programado</button>
+                  <button type="button" onclick="updateMatchStatus('${m.id}', 'live')" class="px-2.5 py-1 rounded-lg text-[11px] font-semibold ${m.status === 'live' ? 'bg-rose-500 text-white font-bold' : 'bg-slate-900 text-slate-400 hover:text-white'}">🔴 En Vivo</button>
+                  <button type="button" onclick="updateMatchStatus('${m.id}', 'finished')" class="px-2.5 py-1 rounded-lg text-[11px] font-semibold ${m.status === 'finished' ? 'bg-emerald-500 text-slate-950 font-bold' : 'bg-slate-900 text-slate-400 hover:text-white'}">✅ Finalizado</button>
+                </div>
+                <div class="flex items-center gap-1.5 text-[10px]">
+                  <span class="px-2 py-0.5 rounded bg-slate-900 text-slate-300 border border-slate-700">👥 ${(m.attendance || []).length} asist.</span>
+                  <span class="px-2 py-0.5 rounded bg-slate-900 text-amber-300 border border-slate-700">🟨 ${(m.yellowCards || []).length}</span>
+                  <span class="px-2 py-0.5 rounded ${m.cedulaUrl ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 font-bold' : 'bg-slate-900 text-slate-400 border border-slate-800'}">${m.cedulaUrl ? '📄 Cédula OK' : 'Sin cédula'}</span>
+                </div>
               </div>
-              <span class="text-[11px] text-emerald-400 font-medium">Tabla sincronizada</span>
+              <button type="button" onclick="openAdminMatchSheetModal('${m.id}')" class="w-full py-2 px-3 rounded-xl bg-indigo-600/25 hover:bg-indigo-600 text-indigo-200 hover:text-white border border-indigo-500/40 font-bold text-xs transition-all flex items-center justify-center gap-2">
+                <i data-lucide="clipboard-list" class="w-4 h-4"></i>
+                <span>📋 Capturar Cédula (Drive), Asistencias y Tarjetas</span>
+              </button>
             </div>
           </div>
         `;
@@ -2655,7 +3177,18 @@ service cloud.firestore {
 
       if (editId) {
         const idx = appState.matches.findIndex(m => m.id === editId);
-        if (idx >= 0) appState.matches[idx] = matchData;
+        if (idx >= 0) {
+          const prev = appState.matches[idx];
+          matchData.attendance = prev.attendance || [];
+          matchData.yellowCards = prev.yellowCards || [];
+          matchData.directSuspensions = prev.directSuspensions || [];
+          matchData.cedulaUrl = prev.cedulaUrl || '';
+          matchData.cedulaNotes = prev.cedulaNotes || '';
+          matchData.vuelta = prev.vuelta || '';
+          matchData.dayLabel = prev.dayLabel || '';
+          matchData.restTeam = prev.restTeam || '';
+          appState.matches[idx] = matchData;
+        }
         showToast('Partido editado', 'Se actualizaron los datos de horario y cancha.', 'success');
       } else {
         appState.matches.push(matchData);
@@ -2906,6 +3439,7 @@ service cloud.firestore {
               </div>
             </div>
             <div class="flex items-center gap-1.5 shrink-0">
+              <button type="button" onclick="openAdminRosterForTeam('${t.id}')" class="px-2.5 py-1.5 rounded-lg bg-emerald-500/15 hover:bg-emerald-500/30 text-xs text-emerald-300 font-bold" title="Administrar jugadores de este equipo">👥 (${(appState.players || []).filter(p => p.teamId === t.id).length})</button>
               <button type="button" onclick="editTeamInAdmin('${t.id}')" class="px-2.5 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs text-slate-200 font-medium">Editar</button>
               <button type="button" onclick="deleteTeamFromAdmin('${t.id}')" class="px-2.5 py-1.5 rounded-lg bg-rose-500/15 hover:bg-rose-500/30 text-xs text-rose-300 font-medium">Borrar</button>
             </div>
@@ -3101,7 +3635,7 @@ service cloud.firestore {
       showToast('Datos restaurados', 'Se recargaron los 8 clubes y 3 jornadas de demostración.', 'info');
     }
 
-    // Modal de Detalle de Club
+    // Modal de Detalle de Club (con Plantilla de Jugadores, Asistencias y Partidos)
     function openTeamDetailModal(teamId) {
       const team = getTeamById(teamId);
       if (!team) return;
@@ -3109,6 +3643,9 @@ service cloud.firestore {
       const row = standings.find(r => r.team.id === teamId);
       const rank = standings.findIndex(r => r.team.id === teamId) + 1;
       const teamMatches = appState.matches.filter(m => m.homeTeamId === teamId || m.awayTeamId === teamId);
+      const allStats = calculatePlayersStatsAndSuspensions();
+      const teamPlayers = allStats.playersStats.filter(ps => ps.player.teamId === teamId);
+      const minReq = Number(appState.settings.minMatchesForFinals || 6);
 
       const modal = document.getElementById('teamDetailModal');
       const body = document.getElementById('teamDetailModalBody');
@@ -3128,7 +3665,7 @@ service cloud.firestore {
           </button>
         </div>
 
-        <div class="grid grid-cols-4 gap-2 text-center my-4">
+        <div class="grid grid-cols-4 gap-2 text-center my-3">
           <div class="p-2.5 rounded-xl bg-slate-900 border border-slate-800">
             <div class="text-[10px] text-slate-400">Jugados</div>
             <div class="font-display font-bold text-base text-white">${row ? row.pj : 0}</div>
@@ -3138,8 +3675,8 @@ service cloud.firestore {
             <div class="font-display font-bold text-base text-emerald-400">${row ? row.g : 0}</div>
           </div>
           <div class="p-2.5 rounded-xl bg-slate-900 border border-slate-800">
-            <div class="text-[10px] text-slate-400">Goles Favor</div>
-            <div class="font-display font-bold text-base text-amber-400">${row ? row.gf : 0}</div>
+            <div class="text-[10px] text-slate-400">Jugadores</div>
+            <div class="font-display font-bold text-base text-indigo-400">${teamPlayers.length}</div>
           </div>
           <div class="p-2.5 rounded-xl bg-slate-900 border border-slate-800">
             <div class="text-[10px] text-slate-400">Diferencia</div>
@@ -3147,21 +3684,54 @@ service cloud.firestore {
           </div>
         </div>
 
+        <!-- Plantilla Oficial de Jugadores del Equipo -->
+        <div class="space-y-2 mb-4">
+          <div class="flex items-center justify-between">
+            <h4 class="text-xs font-bold uppercase tracking-wider text-emerald-400">👥 Plantilla de Jugadores (${teamPlayers.length})</h4>
+            <span class="text-[10px] text-slate-400">Mínimo para Finales: ${minReq} PJ</span>
+          </div>
+          ${teamPlayers.length === 0
+            ? `<div class="p-3 rounded-xl bg-slate-900/70 border border-slate-800 text-xs text-slate-400 text-center">Aún no se han cargado jugadores para este club.</div>`
+            : `<div class="space-y-1.5 max-h-48 overflow-y-auto custom-scrollbar pr-1">
+                ${teamPlayers.map(ps => `
+                  <div class="p-2.5 rounded-xl bg-slate-900/90 border ${ps.isSuspended ? 'border-rose-500/40' : 'border-slate-800'} flex items-center justify-between gap-2 text-xs">
+                    <div class="min-w-0">
+                      <div class="font-bold text-white truncate flex items-center gap-1.5">
+                        ${ps.player.number ? `<span class="px-1.5 py-0.5 rounded bg-slate-800 text-slate-300 text-[10px]">#${escapeHtml(ps.player.number)}</span>` : ''}
+                        <span>${escapeHtml(ps.player.fullName)}</span>
+                        ${ps.isSuspended ? `<span class="px-1.5 py-0.5 rounded bg-rose-500/20 text-rose-300 text-[10px] font-bold">🚫 SUSPENDIDO</span>` : ''}
+                      </div>
+                    </div>
+                    <div class="flex items-center gap-2 shrink-0 text-[11px]">
+                      <span class="px-2 py-0.5 rounded ${ps.eligibleForFinals ? 'bg-emerald-500/20 text-emerald-300 font-bold' : 'bg-slate-800 text-slate-300'}">Asist: ${ps.totalAttended}/${minReq}</span>
+                      ${ps.totalYellows > 0 ? `<span class="px-1.5 py-0.5 rounded bg-amber-500/20 text-amber-300 font-bold">🟨 ${ps.totalYellows}</span>` : ''}
+                    </div>
+                  </div>
+                `).join('')}
+              </div>`
+          }
+        </div>
+
         <div class="space-y-2">
-          <h4 class="text-xs font-bold uppercase tracking-wider text-slate-400">Partidos de ${escapeHtml(team.name)}</h4>
-          <div class="space-y-2 max-h-60 overflow-y-auto custom-scrollbar pr-1">
+          <h4 class="text-xs font-bold uppercase tracking-wider text-slate-400">Partidos y Cédulas de ${escapeHtml(team.name)}</h4>
+          <div class="space-y-2 max-h-52 overflow-y-auto custom-scrollbar pr-1">
             ${teamMatches.map(m => {
               const h = getTeamById(m.homeTeamId);
               const a = getTeamById(m.awayTeamId);
               return `
-                <div class="p-3 rounded-xl bg-slate-900/90 border border-slate-800 flex items-center justify-between text-xs">
+                <div class="p-3 rounded-xl bg-slate-900/90 border border-slate-800 flex items-center justify-between gap-2 text-xs">
                   <div>
                     <span class="font-bold text-emerald-400">J${m.matchday}</span>
                     <span class="text-slate-300 ml-2">${escapeHtml(h ? h.name : '')} vs ${escapeHtml(a ? a.name : '')}</span>
                     <div class="text-[10px] text-slate-500 mt-0.5">${escapeHtml(m.date)} (${escapeHtml(m.time)}) • ${escapeHtml(m.stadium)}</div>
                   </div>
-                  <div class="font-display font-bold text-sm text-white">
-                    ${m.status === 'scheduled' ? 'Programado' : `${m.homeScore} - ${m.awayScore}`}
+                  <div class="flex items-center gap-2 shrink-0">
+                    <span class="font-display font-bold text-sm text-white">
+                      ${m.status === 'scheduled' ? 'Prog.' : `${m.homeScore} - ${m.awayScore}`}
+                    </span>
+                    <button type="button" onclick="closeTeamDetailModal(); openPublicMatchSheetModal('${m.id}');" class="px-2 py-1 rounded-lg bg-slate-800 hover:bg-emerald-500/20 text-emerald-300 text-[10px] font-bold">
+                      📄 Cédula
+                    </button>
                   </div>
                 </div>
               `;
@@ -3545,6 +4115,1214 @@ service cloud.firestore {
       showToast('🔒 Reglas Copiadas', 'Pégalas en Firebase Console → Firestore Database → Reglas y haz clic en Publicar.', 'success');
     }
 
+
+    // =========================================================================
+    // MOTOR DE JUGADORES, ASISTENCIAS, TARJETAS AMARILLAS, SUSPENSIONES Y CÉDULAS
+    // =========================================================================
+
+    function resolveDriveUrlInfo(rawUrl) {
+      const clean = (rawUrl || '').trim();
+      if (!clean) return { valid: false, isDrive: false, fileId: '', directImgUrl: '', fallbackImgUrl: '', previewEmbedUrl: '', originalUrl: '' };
+
+      // Extraer ID de Google Drive de formatos /file/d/ID, /d/ID, id=ID
+      let fileId = '';
+      const m1 = clean.match(/\/file\/d\/([a-zA-Z0-9_-]{10,})/);
+      const m2 = clean.match(/\/d\/([a-zA-Z0-9_-]{10,})/);
+      const m3 = clean.match(/[?&]id=([a-zA-Z0-9_-]{10,})/);
+      if (m1 && m1[1]) fileId = m1[1];
+      else if (m2 && m2[1]) fileId = m2[1];
+      else if (m3 && m3[1]) fileId = m3[1];
+
+      if (fileId) {
+        return {
+          valid: true,
+          isDrive: true,
+          fileId,
+          directImgUrl: `https://drive.google.com/thumbnail?id=${fileId}&sz=w1600`,
+          fallbackImgUrl: `https://lh3.googleusercontent.com/d/${fileId}=w1600`,
+          previewEmbedUrl: `https://drive.google.com/file/d/${fileId}/preview`,
+          originalUrl: `https://drive.google.com/file/d/${fileId}/view`
+        };
+      }
+
+      return {
+        valid: true,
+        isDrive: false,
+        fileId: '',
+        directImgUrl: clean,
+        fallbackImgUrl: clean,
+        previewEmbedUrl: clean,
+        originalUrl: clean
+      };
+    }
+
+    function calculatePlayersStatsAndSuspensions() {
+      ensureAppStateSchema(appState);
+      const minRequired = Number(appState.settings.minMatchesForFinals || 6);
+      const sortedMatches = [...appState.matches].sort((a, b) => {
+        if (Number(a.matchday) !== Number(b.matchday)) return Number(a.matchday) - Number(b.matchday);
+        return String(a.date + a.time).localeCompare(String(b.date + b.time));
+      });
+
+      const playersStats = (appState.players || []).map(player => {
+        const team = getTeamById(player.teamId);
+        const attendedMatches = [];
+        const yellowCardEvents = [];
+        const directSuspensionEvents = [];
+
+        // Eventos cronológicos de tarjetas amarillas para calcular cada ciclo de 3 amarillas
+        const chronologicalYellowInstances = [];
+
+        sortedMatches.forEach(m => {
+          const isTeamInMatch = (m.homeTeamId === player.teamId || m.awayTeamId === player.teamId);
+          const rivalId = m.homeTeamId === player.teamId ? m.awayTeamId : m.homeTeamId;
+          const rivalTeam = getTeamById(rivalId);
+          const rivalName = rivalTeam ? rivalTeam.name : 'Rival';
+
+          // Asistencias
+          if (Array.isArray(m.attendance) && m.attendance.includes(player.id)) {
+            attendedMatches.push({
+              matchId: m.id,
+              matchday: m.matchday,
+              date: m.date,
+              rivalName
+            });
+          }
+
+          // Tarjetas Amarillas en este partido
+          if (Array.isArray(m.yellowCards)) {
+            const countInMatch = m.yellowCards.filter(pid => pid === player.id).length;
+            if (countInMatch > 0) {
+              yellowCardEvents.push({
+                matchId: m.id,
+                matchday: m.matchday,
+                date: m.date,
+                rivalName,
+                count: countInMatch
+              });
+              for (let c = 0; c < countInMatch; c++) {
+                chronologicalYellowInstances.push({
+                  matchId: m.id,
+                  matchday: Number(m.matchday),
+                  date: m.date,
+                  rivalName
+                });
+              }
+            }
+          }
+
+          // Suspensiones directas registradas en la cédula del partido
+          if (Array.isArray(m.directSuspensions)) {
+            m.directSuspensions.forEach(ds => {
+              if (ds && ds.playerId === player.id) {
+                directSuspensionEvents.push({
+                  matchId: m.id,
+                  matchday: Number(m.matchday),
+                  reason: ds.reason || 'Tarjeta Roja / Reporte Arbitral',
+                  matches: Number(ds.matches || 1),
+                  served: Boolean(ds.served)
+                });
+              }
+            });
+          }
+        });
+
+        const totalAttended = attendedMatches.length;
+        const totalYellows = chronologicalYellowInstances.length;
+        const eligibleForFinals = totalAttended >= minRequired;
+        const missingForFinals = Math.max(0, minRequired - totalAttended);
+        const progressPct = Math.min(100, Math.round((totalAttended / Math.max(1, minRequired)) * 100));
+
+        // Evaluación automática de ciclos de 3 tarjetas amarillas (cada 3 amarillas = 1 partido de suspensión)
+        const totalCyclesTriggered = Math.floor(totalYellows / 3);
+        let activeYellowSuspension = null;
+
+        for (let cycleIdx = 1; cycleIdx <= totalCyclesTriggered; cycleIdx++) {
+          const thirdCardEvent = chronologicalYellowInstances[cycleIdx * 3 - 1];
+          const cycleCards = chronologicalYellowInstances.slice((cycleIdx - 1) * 3, cycleIdx * 3);
+          const triggerMatchday = thirdCardEvent ? thirdCardEvent.matchday : 1;
+
+          // Verificar si ya fue marcada como cumplida por el admin o si el equipo ya finalizó un partido posterior sin que el jugador alineara
+          const manuallyServed = Number(player.servedCycles || 0) >= cycleIdx;
+          const autoServedInFinishedMatch = sortedMatches.some(m =>
+            (m.homeTeamId === player.teamId || m.awayTeamId === player.teamId) &&
+            Number(m.matchday) > triggerMatchday &&
+            m.status === 'finished' &&
+            (!Array.isArray(m.attendance) || !m.attendance.includes(player.id))
+          );
+
+          if (!manuallyServed && !autoServedInFinishedMatch) {
+            const jornadasStr = cycleCards.map(ev => `J${ev.matchday}`).join(', ');
+            activeYellowSuspension = {
+              cycleNumber: cycleIdx,
+              games: 1,
+              reason: `Acumulación de 3 Tarjetas Amarillas (${jornadasStr})`,
+              triggerMatchday
+            };
+          }
+        }
+
+        // Evaluación de suspensión directa en partido no cumplida
+        const activeDirectMatchSusp = directSuspensionEvents.find(ds => {
+          if (ds.served) return false;
+          const servedAuto = sortedMatches.some(m =>
+            (m.homeTeamId === player.teamId || m.awayTeamId === player.teamId) &&
+            Number(m.matchday) > ds.matchday &&
+            m.status === 'finished' &&
+            (!Array.isArray(m.attendance) || !m.attendance.includes(player.id))
+          );
+          return !servedAuto;
+        });
+
+        // Determinar próximo partido programado del equipo
+        const nextTeamMatch = sortedMatches.find(m =>
+          (m.homeTeamId === player.teamId || m.awayTeamId === player.teamId) &&
+          m.status === 'scheduled'
+        );
+
+        const isSuspended = Boolean(player.manualSuspended || activeYellowSuspension || activeDirectMatchSusp);
+        let suspensionReason = '';
+        let suspensionGames = 1;
+        let suspensionType = '';
+
+        if (player.manualSuspended && activeYellowSuspension) {
+          suspensionReason = `${activeYellowSuspension.reason} + ${player.manualSuspensionReason || 'Sanción Directiva'}`;
+          suspensionGames = 1 + Number(player.manualSuspensionMatches || 1);
+          suspensionType = 'ambas';
+        } else if (activeYellowSuspension) {
+          suspensionReason = activeYellowSuspension.reason;
+          suspensionGames = 1;
+          suspensionType = 'amarillas';
+        } else if (activeDirectMatchSusp) {
+          suspensionReason = activeDirectMatchSusp.reason;
+          suspensionGames = activeDirectMatchSusp.matches || 1;
+          suspensionType = 'directa';
+        } else if (player.manualSuspended) {
+          suspensionReason = player.manualSuspensionReason || 'Sanción Disciplinaria Oficial';
+          suspensionGames = Number(player.manualSuspensionMatches || 1);
+          suspensionType = 'manual';
+        }
+
+        const yellowsInCurrentCycle = totalYellows % 3;
+        const inCapilla = !isSuspended && yellowsInCurrentCycle === 2;
+
+        return {
+          player,
+          team,
+          attendedMatches,
+          yellowCardEvents,
+          totalAttended,
+          totalYellows,
+          yellowsInCurrentCycle,
+          totalCyclesTriggered,
+          eligibleForFinals,
+          missingForFinals,
+          progressPct,
+          isSuspended,
+          suspensionReason,
+          suspensionGames,
+          suspensionType,
+          inCapilla,
+          nextTeamMatch
+        };
+      });
+
+      const suspendedList = playersStats.filter(ps => ps.isSuspended);
+      const capillaList = playersStats.filter(ps => ps.inCapilla);
+      const eligibleList = playersStats.filter(ps => ps.eligibleForFinals);
+
+      return {
+        minRequired,
+        playersStats,
+        suspendedList,
+        capillaList,
+        eligibleList
+      };
+    }
+
+    function renderPublicPlayersAndSuspensions() {
+      const stats = calculatePlayersStatsAndSuspensions();
+      const minReq = stats.minRequired;
+
+      // Actualizar badges globales
+      const minBadge = document.getElementById('pubMinMatchesBadge');
+      if (minBadge) minBadge.textContent = `Mínimo para Finales: ${minReq} partidos`;
+
+      const suspBadge = document.getElementById('pubSuspendedBadge');
+      if (suspBadge) {
+        suspBadge.textContent = stats.suspendedList.length;
+        suspBadge.className = stats.suspendedList.length > 0
+          ? 'px-1.5 py-0.5 text-[10px] font-bold bg-rose-500 text-white rounded-full animate-pulse'
+          : 'px-1.5 py-0.5 text-[10px] font-bold bg-slate-800 text-slate-300 rounded-full';
+      }
+
+      const elTotal = document.getElementById('pubStatTotalPlayers');
+      const elElig = document.getElementById('pubStatEligiblePlayers');
+      const elCap = document.getElementById('pubStatCapillaPlayers');
+      const elSusp = document.getElementById('pubStatSuspendedPlayers');
+      if (elTotal) elTotal.textContent = stats.playersStats.length;
+      if (elElig) elElig.textContent = stats.eligibleList.length;
+      if (elCap) elCap.textContent = stats.capillaList.length;
+      if (elSusp) elSusp.textContent = stats.suspendedList.length;
+
+      // 1. Renderizar Tabla Pública de Jugadores y Asistencias
+      const tbody = document.getElementById('pubPlayersAttendanceTableBody');
+      if (tbody) {
+        const searchQ = (document.getElementById('pubPlayerSearchInput')?.value || '').trim().toLowerCase();
+        const teamF = document.getElementById('pubPlayerTeamFilter')?.value || 'all';
+        const statusF = document.getElementById('pubPlayerStatusFilter')?.value || 'all';
+
+        const filtered = stats.playersStats.filter(ps => {
+          if (teamF !== 'all' && ps.player.teamId !== teamF) return false;
+          if (statusF === 'eligible' && !ps.eligibleForFinals) return false;
+          if (statusF === 'pending' && ps.eligibleForFinals) return false;
+          if (statusF === 'yellows' && ps.totalYellows === 0) return false;
+          if (statusF === 'suspended' && !ps.isSuspended) return false;
+          if (searchQ) {
+            const matchName = ps.player.fullName.toLowerCase().includes(searchQ);
+            const matchTeam = ps.team && ps.team.name.toLowerCase().includes(searchQ);
+            return matchName || matchTeam;
+          }
+          return true;
+        }).sort((a, b) => {
+          if (b.totalAttended !== a.totalAttended) return b.totalAttended - a.totalAttended;
+          return a.player.fullName.localeCompare(b.player.fullName);
+        });
+
+        if (filtered.length === 0) {
+          tbody.innerHTML = `
+            <tr>
+              <td colspan="7" class="py-10 px-4 text-center text-xs text-slate-400">
+                ${stats.playersStats.length === 0
+                  ? 'Aún no hay jugadores registrados en el padrón. El administrador puede cargarlos desde el panel "2. Jugadores, Asistencias y Sanciones".'
+                  : 'No se encontraron jugadores con los filtros seleccionados.'}
+              </td>
+            </tr>
+          `;
+        } else {
+          tbody.innerHTML = filtered.map(ps => {
+            const jornadasBadges = ps.attendedMatches.length > 0
+              ? ps.attendedMatches.map(am => `<span class="px-1.5 py-0.5 rounded bg-slate-800 text-emerald-300 border border-slate-700 text-[10px] font-bold" title="Jornada ${am.matchday} vs ${escapeHtml(am.rivalName)} (${escapeHtml(am.date)})">J${am.matchday}</span>`).join(' ')
+              : '<span class="text-[11px] text-slate-500">Sin asistencias aún</span>';
+
+            const yellowCardsDisplay = ps.totalYellows > 0
+              ? `<div class="inline-flex flex-col items-center">
+                   <span class="px-2 py-0.5 rounded-md bg-amber-500/20 text-amber-300 border border-amber-500/40 font-bold text-xs">🟨 ${ps.totalYellows} acum.</span>
+                   <span class="text-[10px] text-slate-400 mt-0.5">Ciclo actual: ${ps.yellowsInCurrentCycle}/3</span>
+                 </div>`
+              : `<span class="text-xs text-slate-500">0</span>`;
+
+            let statusHtml = '';
+            if (ps.isSuspended) {
+              statusHtml = `<span class="px-2.5 py-1 rounded-full bg-rose-500/20 text-rose-300 border border-rose-500/40 text-[11px] font-extrabold inline-flex items-center gap-1">🚫 SUSPENDIDO (${ps.suspensionGames}P)</span>`;
+            } else if (ps.eligibleForFinals) {
+              statusHtml = `<span class="px-2.5 py-1 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 text-[11px] font-bold inline-flex items-center gap-1">✅ Habilitado Finales</span>`;
+            } else {
+              statusHtml = `<span class="px-2.5 py-1 rounded-full bg-slate-800 text-slate-300 border border-slate-700 text-[11px] font-medium">⏳ Faltan ${ps.missingForFinals} PJ</span>`;
+            }
+
+            return `
+              <tr class="hover:bg-slate-800/40 transition-colors ${ps.isSuspended ? 'bg-rose-950/15' : ''}">
+                <td class="py-3 pl-4 pr-2">
+                  <div class="flex items-center gap-2">
+                    ${ps.player.number ? `<span class="w-6 h-6 rounded-lg bg-slate-800 border border-slate-700 text-slate-200 text-[11px] font-bold inline-flex items-center justify-center shrink-0">#${escapeHtml(ps.player.number)}</span>` : ''}
+                    <div>
+                      <div class="font-bold text-white">${escapeHtml(ps.player.fullName)}</div>
+                      ${ps.isSuspended ? `<div class="text-[10px] text-rose-400 font-semibold">${escapeHtml(ps.suspensionReason)}</div>` : ps.inCapilla ? `<div class="text-[10px] text-amber-400 font-semibold">⚠️ En capilla (2/3 amarillas)</div>` : ''}
+                    </div>
+                  </div>
+                </td>
+                <td class="py-3 px-3">
+                  <div class="flex items-center gap-2">
+                    ${renderTeamShield(ps.team, 'w-7 h-7')}
+                    <span class="font-semibold text-slate-200 text-xs">${escapeHtml(ps.team ? ps.team.name : 'Club')}</span>
+                  </div>
+                </td>
+                <td class="py-3 px-3 text-center">
+                  <span class="px-2.5 py-1 rounded-lg bg-slate-900 border border-slate-700 font-display font-extrabold text-sm text-white">${ps.totalAttended}</span>
+                </td>
+                <td class="py-3 px-3">
+                  <div class="space-y-1">
+                    <div class="flex items-center justify-between text-[11px]">
+                      <span class="${ps.eligibleForFinals ? 'text-emerald-400 font-bold' : 'text-slate-400'}">${ps.totalAttended} de ${minReq} requeridos</span>
+                      <span class="font-bold text-slate-300">${ps.progressPct}%</span>
+                    </div>
+                    <div class="w-full h-2 rounded-full bg-slate-800 overflow-hidden">
+                      <div class="h-full rounded-full ${ps.eligibleForFinals ? 'bg-emerald-400' : 'bg-indigo-500'}" style="width: ${ps.progressPct}%"></div>
+                    </div>
+                  </div>
+                </td>
+                <td class="py-3 px-3">
+                  <div class="flex flex-wrap gap-1 max-w-xs">${jornadasBadges}</div>
+                </td>
+                <td class="py-3 px-3 text-center">${yellowCardsDisplay}</td>
+                <td class="py-3 pl-2 pr-4 text-center">${statusHtml}</td>
+              </tr>
+            `;
+          }).join('');
+        }
+      }
+
+      // 2. Renderizar Pestaña Pública de Jugadores Suspendidos
+      const suspGrid = document.getElementById('pubSuspendedCardsGrid');
+      if (suspGrid) {
+        if (stats.suspendedList.length === 0) {
+          suspGrid.innerHTML = `
+            <div class="col-span-2 glass-card rounded-2xl p-6 border border-emerald-500/25 text-center space-y-1">
+              <div class="text-emerald-400 font-display font-bold text-sm">✅ Sin Jugadores Suspendidos Actualmente</div>
+              <p class="text-xs text-slate-400">Todos los jugadores registrados están habilitados disciplinariamente para su próximo encuentro.</p>
+            </div>
+          `;
+        } else {
+          suspGrid.innerHTML = stats.suspendedList.map(ps => {
+            const nextMatchText = ps.nextTeamMatch
+              ? `Jornada ${ps.nextTeamMatch.matchday} (${ps.nextTeamMatch.date} • ${ps.nextTeamMatch.time})`
+              : 'Próxima jornada programada';
+            return `
+              <div class="glass-card rounded-2xl p-4 border-2 border-rose-500/50 bg-rose-950/20 flex flex-col justify-between gap-3 shadow-lg">
+                <div class="flex items-start justify-between gap-3">
+                  <div class="flex items-center gap-3">
+                    ${renderTeamShield(ps.team, 'w-12 h-12')}
+                    <div>
+                      <span class="px-2 py-0.5 rounded bg-rose-500 text-white text-[10px] font-extrabold uppercase tracking-wider">🚫 NO PUEDE JUGAR • ${ps.suspensionGames} PARTIDO(S)</span>
+                      <h5 class="font-display font-extrabold text-base text-white mt-1">
+                        ${ps.player.number ? `#${escapeHtml(ps.player.number)} ` : ''}${escapeHtml(ps.player.fullName)}
+                      </h5>
+                      <p class="text-xs text-slate-300 font-semibold">${escapeHtml(ps.team ? ps.team.name : 'Equipo')}</p>
+                    </div>
+                  </div>
+                  <div class="px-2.5 py-1 rounded-xl bg-slate-900 border border-rose-500/40 text-center shrink-0">
+                    <div class="text-[10px] text-slate-400">Amarillas</div>
+                    <div class="font-display font-black text-sm text-amber-400">🟨 ${ps.totalYellows}</div>
+                  </div>
+                </div>
+                <div class="p-3 rounded-xl bg-slate-950/90 border border-rose-500/30 space-y-1 text-xs">
+                  <div class="text-rose-300 font-bold">Motivo Oficial: <span class="text-white font-semibold">${escapeHtml(ps.suspensionReason)}</span></div>
+                  <div class="text-slate-400 text-[11px]">Partido a cumplir sanción: <strong class="text-amber-300">${escapeHtml(nextMatchText)}</strong></div>
+                </div>
+              </div>
+            `;
+          }).join('');
+        }
+      }
+
+      // 3. Renderizar Lista En Capilla (2 Amarillas)
+      const capContainer = document.getElementById('pubCapillaListContainer');
+      if (capContainer) {
+        if (stats.capillaList.length === 0) {
+          capContainer.innerHTML = `<div class="glass-card rounded-xl p-4 border border-slate-800 text-xs text-slate-400 text-center">Ningún jugador tiene 2 tarjetas amarillas acumuladas en este momento.</div>`;
+        } else {
+          capContainer.innerHTML = stats.capillaList.map(ps => {
+            const jornadasStr = ps.yellowCardEvents.map(e => `J${e.matchday}`).join(', ');
+            return `
+              <div class="glass-card rounded-xl p-3.5 border border-amber-500/40 bg-amber-950/15 flex items-center justify-between gap-3">
+                <div class="flex items-center gap-2.5 min-w-0">
+                  ${renderTeamShield(ps.team, 'w-9 h-9')}
+                  <div class="min-w-0">
+                    <div class="font-bold text-xs sm:text-sm text-white truncate">${escapeHtml(ps.player.fullName)}</div>
+                    <div class="text-[11px] text-slate-400 truncate">${escapeHtml(ps.team ? ps.team.name : '')} • Amonestado en: ${escapeHtml(jornadasStr)}</div>
+                  </div>
+                </div>
+                <span class="px-2.5 py-1 rounded-lg bg-amber-500/20 text-amber-300 border border-amber-500/40 text-xs font-extrabold shrink-0">🟨🟨 2/3</span>
+              </div>
+            `;
+          }).join('');
+        }
+      }
+
+      // 4. Renderizar Historial General de Tarjetas Amarillas
+      const ycContainer = document.getElementById('pubYellowCardsHistoryContainer');
+      if (ycContainer) {
+        const withCards = stats.playersStats.filter(ps => ps.totalYellows > 0).sort((a, b) => b.totalYellows - a.totalYellows);
+        if (withCards.length === 0) {
+          ycContainer.innerHTML = `<div class="glass-card rounded-xl p-4 border border-slate-800 text-xs text-slate-400 text-center">No hay tarjetas amarillas registradas todavía.</div>`;
+        } else {
+          ycContainer.innerHTML = withCards.map(ps => {
+            const detailBadges = ps.yellowCardEvents.map(ev =>
+              `<span class="px-1.5 py-0.5 rounded bg-amber-500/15 text-amber-300 border border-amber-500/30 text-[10px] font-bold">J${ev.matchday} (${ev.count}🟨 vs ${escapeHtml(ev.rivalName)})</span>`
+            ).join(' ');
+            return `
+              <div class="glass-card rounded-xl p-3.5 border border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                <div class="flex items-center gap-2.5">
+                  ${renderTeamShield(ps.team, 'w-8 h-8')}
+                  <div>
+                    <div class="font-bold text-xs text-white flex items-center gap-2">
+                      <span>${escapeHtml(ps.player.fullName)}</span>
+                      <span class="text-[11px] text-slate-400">(${escapeHtml(ps.team ? ps.team.name : '')})</span>
+                    </div>
+                    <div class="flex flex-wrap gap-1 mt-1">${detailBadges}</div>
+                  </div>
+                </div>
+                <div class="flex items-center gap-2 shrink-0">
+                  <span class="px-2.5 py-1 rounded-lg bg-amber-500/20 text-amber-300 border border-amber-500/40 font-display font-bold text-xs">Total: ${ps.totalYellows} 🟨</span>
+                  ${ps.isSuspended ? `<span class="px-2 py-1 rounded-lg bg-rose-500 text-white font-bold text-[10px]">SUSPENDIDO</span>` : ''}
+                </div>
+              </div>
+            `;
+          }).join('');
+        }
+      }
+    }
+
+    // =========================================================================
+    // ADMINISTRACIÓN DE JUGADORES, PLANTILLAS Y SANCIONES EN /ADMIN.HTML
+    // =========================================================================
+
+    function syncAdminRosterFilterWithSelect() {
+      const sel = document.getElementById('admPlayerTeamSelect');
+      const filter = document.getElementById('admRosterFilterTeam');
+      if (sel && filter && sel.value) {
+        filter.value = sel.value;
+        renderAdminPlayersSection();
+      }
+    }
+
+    function openAdminRosterForTeam(teamId) {
+      switchAdminTab('jugadores');
+      const sel = document.getElementById('admPlayerTeamSelect');
+      const filter = document.getElementById('admRosterFilterTeam');
+      if (sel) sel.value = teamId;
+      if (filter) filter.value = teamId;
+      renderAdminPlayersSection();
+    }
+
+    function saveMinMatchesRequirement() {
+      const val = Math.max(1, Number(document.getElementById('admMinMatchesInput')?.value || 6));
+      appState.settings.minMatchesForFinals = val;
+      saveAppState();
+      showToast('Regla actualizada', `Se requieren mínimo ${val} partidos asistidos para jugar las Finales.`, 'success');
+    }
+
+    function savePlayerFromAdmin(e) {
+      e.preventDefault();
+      const editId = document.getElementById('admEditPlayerId').value;
+      const teamId = document.getElementById('admPlayerTeamSelect').value;
+      const fullName = (document.getElementById('admPlayerNameInput').value || '').trim();
+      const number = (document.getElementById('admPlayerNumberInput').value || '').trim();
+
+      if (!fullName || !teamId) {
+        showToast('Datos incompletos', 'Escribe el nombre completo del jugador y selecciona su equipo.', 'error');
+        return;
+      }
+
+      if (editId) {
+        const p = appState.players.find(x => x.id === editId);
+        if (p) {
+          p.teamId = teamId;
+          p.fullName = fullName;
+          p.number = number;
+          showToast('Jugador actualizado', `Se actualizaron los datos de ${fullName}.`, 'success');
+        }
+      } else {
+        appState.players.push({
+          id: 'p_' + Date.now() + '_' + Math.random().toString(36).substring(2, 6),
+          teamId,
+          fullName,
+          number,
+          manualSuspended: false,
+          manualSuspensionReason: '',
+          manualSuspensionMatches: 1,
+          servedCycles: 0
+        });
+        const t = getTeamById(teamId);
+        showToast('Jugador registrado', `${fullName} fue dado de alta en ${t ? t.name : 'el club'}.`, 'success');
+      }
+
+      resetAdminPlayerForm();
+      saveAppState();
+    }
+
+    function bulkAddPlayersToTeam() {
+      const teamId = document.getElementById('admPlayerTeamSelect')?.value;
+      const rawText = (document.getElementById('admBulkPlayersTextarea')?.value || '').trim();
+      if (!teamId || !rawText) {
+        showToast('Lista vacía', 'Pega al menos un nombre de jugador en el recuadro de carga masiva.', 'error');
+        return;
+      }
+
+      const lines = rawText.split(/\r?\n/).map(l => l.trim()).filter(Boolean);
+      let addedCount = 0;
+
+      lines.forEach((line, idx) => {
+        let number = '';
+        let fullName = line;
+        // Soportar formato "10 - Juan Pérez" o "#10 Juan Pérez"
+        const m = line.match(/^#?(\d{1,3})\s*[-–.:)]\s*(.+)$/);
+        if (m) {
+          number = m[1];
+          fullName = m[2].trim();
+        }
+        if (fullName) {
+          appState.players.push({
+            id: 'p_' + Date.now() + '_' + idx + '_' + Math.random().toString(36).substring(2, 6),
+            teamId,
+            fullName,
+            number,
+            manualSuspended: false,
+            manualSuspensionReason: '',
+            manualSuspensionMatches: 1,
+            servedCycles: 0
+          });
+          addedCount++;
+        }
+      });
+
+      document.getElementById('admBulkPlayersTextarea').value = '';
+      const filter = document.getElementById('admRosterFilterTeam');
+      if (filter) filter.value = teamId;
+      saveAppState();
+      const team = getTeamById(teamId);
+      showToast('Plantilla cargada', `Se agregaron ${addedCount} jugadores a ${team ? team.name : 'la plantilla'}.`, 'success');
+    }
+
+    function editPlayerInAdmin(playerId) {
+      const p = (appState.players || []).find(x => x.id === playerId);
+      if (!p) return;
+      document.getElementById('admEditPlayerId').value = p.id;
+      document.getElementById('admPlayerTeamSelect').value = p.teamId;
+      document.getElementById('admPlayerNameInput').value = p.fullName;
+      document.getElementById('admPlayerNumberInput').value = p.number || '';
+      document.getElementById('admPlayerFormTitle').innerHTML = '<i data-lucide="edit-3" class="w-4 h-4 text-amber-400"></i><span>Editando Jugador</span>';
+      document.getElementById('admPlayerSubmitText').textContent = 'Actualizar Datos del Jugador';
+      if (window.lucide) lucide.createIcons();
+    }
+
+    function resetAdminPlayerForm() {
+      const idEl = document.getElementById('admEditPlayerId');
+      const nameEl = document.getElementById('admPlayerNameInput');
+      const numEl = document.getElementById('admPlayerNumberInput');
+      const titleEl = document.getElementById('admPlayerFormTitle');
+      const btnEl = document.getElementById('admPlayerSubmitText');
+      if (idEl) idEl.value = '';
+      if (nameEl) nameEl.value = '';
+      if (numEl) numEl.value = '';
+      if (titleEl) titleEl.innerHTML = '<i data-lucide="user-plus" class="w-4 h-4 text-emerald-400"></i><span>Registrar / Editar Jugador</span>';
+      if (btnEl) btnEl.textContent = 'Guardar Jugador en el Equipo';
+      if (window.lucide) lucide.createIcons();
+    }
+
+    function deletePlayerFromAdmin(playerId) {
+      const p = (appState.players || []).find(x => x.id === playerId);
+      if (!p) return;
+      appState.players = appState.players.filter(x => x.id !== playerId);
+      appState.matches.forEach(m => {
+        if (Array.isArray(m.attendance)) m.attendance = m.attendance.filter(id => id !== playerId);
+        if (Array.isArray(m.yellowCards)) m.yellowCards = m.yellowCards.filter(id => id !== playerId);
+        if (Array.isArray(m.directSuspensions)) m.directSuspensions = m.directSuspensions.filter(ds => ds.playerId !== playerId);
+      });
+      saveAppState();
+      showToast('Jugador eliminado', `Se dio de baja a ${p.fullName} del padrón.`, 'info');
+    }
+
+    function applyManualPlayerSuspension() {
+      const playerId = document.getElementById('admManualSuspPlayerSelect')?.value;
+      const reason = (document.getElementById('admManualSuspReason')?.value || '').trim() || 'Sanción Disciplinaria / Tarjeta Roja';
+      const games = Math.max(1, Number(document.getElementById('admManualSuspGames')?.value || 1));
+
+      const p = (appState.players || []).find(x => x.id === playerId);
+      if (!p) {
+        showToast('Selecciona un jugador', 'Primero registra y selecciona un jugador de la lista.', 'error');
+        return;
+      }
+
+      p.manualSuspended = true;
+      p.manualSuspensionReason = reason;
+      p.manualSuspensionMatches = games;
+      document.getElementById('admManualSuspReason').value = '';
+      saveAppState();
+      showToast('🚫 Jugador Suspendido', `${p.fullName} fue suspendido ${games} partido(s): ${reason}.`, 'info');
+    }
+
+    function clearPlayerSuspensionInAdmin(playerId) {
+      const stats = calculatePlayersStatsAndSuspensions();
+      const ps = stats.playersStats.find(x => x.player.id === playerId);
+      const p = (appState.players || []).find(x => x.id === playerId);
+      if (!p) return;
+
+      p.manualSuspended = false;
+      p.manualSuspensionReason = '';
+      p.manualSuspensionMatches = 1;
+
+      if (ps && ps.totalCyclesTriggered > 0) {
+        p.servedCycles = ps.totalCyclesTriggered;
+      }
+
+      appState.matches.forEach(m => {
+        if (Array.isArray(m.directSuspensions)) {
+          m.directSuspensions.forEach(ds => {
+            if (ds.playerId === playerId) ds.served = true;
+          });
+        }
+      });
+
+      saveAppState();
+      showToast('✅ Sanción Cumplida', `${p.fullName} ya cumplió su suspensión y está habilitado para jugar.`, 'success');
+    }
+
+    function renderAdminPlayersSection() {
+      const stats = calculatePlayersStatsAndSuspensions();
+      const minIn = document.getElementById('admMinMatchesInput');
+      if (minIn) minIn.value = stats.minRequired;
+
+      // 1. Renderizar Suspendidos Activos en Admin
+      const suspCountEl = document.getElementById('admSuspendedCountLabel');
+      const suspListEl = document.getElementById('admActiveSuspensionsList');
+      if (suspCountEl) suspCountEl.textContent = `${stats.suspendedList.length} suspendido(s)`;
+      if (suspListEl) {
+        if (stats.suspendedList.length === 0) {
+          suspListEl.innerHTML = `<div class="p-3 rounded-xl bg-slate-900/70 border border-slate-800 text-xs text-slate-400 text-center">No hay jugadores suspendidos en este momento.</div>`;
+        } else {
+          suspListEl.innerHTML = stats.suspendedList.map(ps => `
+            <div class="p-3 rounded-xl bg-rose-950/25 border border-rose-500/40 flex flex-wrap items-center justify-between gap-2">
+              <div class="flex items-center gap-2.5 min-w-0">
+                ${renderTeamShield(ps.team, 'w-9 h-9')}
+                <div class="min-w-0">
+                  <div class="font-bold text-xs sm:text-sm text-white truncate">
+                    ${ps.player.number ? `#${escapeHtml(ps.player.number)} ` : ''}${escapeHtml(ps.player.fullName)}
+                    <span class="text-rose-300 text-[11px] font-normal">(${escapeHtml(ps.team ? ps.team.name : '')})</span>
+                  </div>
+                  <div class="text-[11px] text-rose-200 truncate">Motivo: ${escapeHtml(ps.suspensionReason)} • ${ps.suspensionGames} partido(s)</div>
+                </div>
+              </div>
+              <button type="button" onclick="clearPlayerSuspensionInAdmin('${ps.player.id}')" class="px-3 py-1.5 rounded-lg bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-[11px] shrink-0 transition-all">
+                ✅ Marcar Sanción Cumplida
+              </button>
+            </div>
+          `).join('');
+        }
+      }
+
+      // 2. Renderizar Padrón de Jugadores por Equipo en Admin
+      const rosterContainer = document.getElementById('admPlayersRosterContainer');
+      const rosterCountEl = document.getElementById('admRosterCountLabel');
+      if (!rosterContainer) return;
+
+      const filterTeam = document.getElementById('admRosterFilterTeam')?.value || 'all';
+      const searchQ = (document.getElementById('admRosterSearchInput')?.value || '').trim().toLowerCase();
+
+      const filtered = stats.playersStats.filter(ps => {
+        if (filterTeam !== 'all' && ps.player.teamId !== filterTeam) return false;
+        if (searchQ && !ps.player.fullName.toLowerCase().includes(searchQ)) return false;
+        return true;
+      }).sort((a, b) => {
+        if (a.player.teamId !== b.player.teamId) return a.player.teamId.localeCompare(b.player.teamId);
+        return a.player.fullName.localeCompare(b.player.fullName);
+      });
+
+      if (rosterCountEl) rosterCountEl.textContent = `${filtered.length} jugador(es) mostrados (de ${stats.playersStats.length} en la liga)`;
+
+      if (filtered.length === 0) {
+        rosterContainer.innerHTML = `<div class="p-6 rounded-xl bg-slate-900/60 border border-slate-800 text-xs text-slate-400 text-center">No hay jugadores en esta vista. Usa el formulario de la izquierda o pega una lista para cargar la plantilla.</div>`;
+        return;
+      }
+
+      rosterContainer.innerHTML = filtered.map(ps => `
+        <div class="p-3 rounded-xl bg-slate-900/90 border ${ps.isSuspended ? 'border-rose-500/40' : 'border-slate-800'} flex flex-wrap items-center justify-between gap-2">
+          <div class="flex items-center gap-2.5 min-w-0">
+            ${renderTeamShield(ps.team, 'w-8 h-8')}
+            <div class="min-w-0">
+              <div class="font-bold text-xs sm:text-sm text-white truncate flex items-center gap-1.5">
+                ${ps.player.number ? `<span class="px-1.5 py-0.5 rounded bg-slate-800 text-slate-300 text-[10px]">#${escapeHtml(ps.player.number)}</span>` : ''}
+                <span>${escapeHtml(ps.player.fullName)}</span>
+                ${ps.isSuspended ? `<span class="px-1.5 py-0.5 rounded bg-rose-500 text-white text-[10px] font-bold">🚫 SUSPENDIDO</span>` : ''}
+              </div>
+              <div class="text-[11px] text-slate-400 flex flex-wrap items-center gap-2 mt-0.5">
+                <span>${escapeHtml(ps.team ? ps.team.name : '')}</span>
+                <span>•</span>
+                <span class="${ps.eligibleForFinals ? 'text-emerald-400 font-semibold' : 'text-slate-300'}">Asistencias: ${ps.totalAttended}/${stats.minRequired}</span>
+                <span>•</span>
+                <span class="${ps.totalYellows > 0 ? 'text-amber-300 font-semibold' : 'text-slate-400'}">🟨 ${ps.totalYellows} amarillas</span>
+              </div>
+            </div>
+          </div>
+          <div class="flex items-center gap-1.5 shrink-0">
+            <button type="button" onclick="editPlayerInAdmin('${ps.player.id}')" class="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs text-slate-200 font-medium">Editar</button>
+            <button type="button" onclick="deletePlayerFromAdmin('${ps.player.id}')" class="px-2.5 py-1 rounded-lg bg-rose-500/15 hover:bg-rose-500/30 text-xs text-rose-300 font-medium">Borrar</button>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    // =========================================================================
+    // MODAL ADMIN DE CÉDULA (DRIVE), ASISTENCIAS Y TARJETAS POR PARTIDO
+    // =========================================================================
+
+    let modalTempAttendance = new Set();
+    let modalTempYellowCounts = {};
+    let modalTempDirectSusp = new Set();
+
+    function openAdminMatchSheetModal(matchId) {
+      const m = appState.matches.find(x => x.id === matchId);
+      if (!m) return;
+      ensureAppStateSchema(appState);
+
+      document.getElementById('admSheetMatchId').value = m.id;
+      document.getElementById('admSheetCedulaUrl').value = m.cedulaUrl || '';
+      document.getElementById('admSheetCedulaNotes').value = m.cedulaNotes || '';
+
+      const home = getTeamById(m.homeTeamId);
+      const away = getTeamById(m.awayTeamId);
+
+      document.getElementById('admMatchSheetTitle').textContent = `J${m.matchday}: ${home ? home.name : 'Local'} vs ${away ? away.name : 'Visitante'}`;
+      document.getElementById('admMatchSheetSubtitle').textContent = `${m.date} (${m.time} hrs) • ${m.stadium} • Marca asistencias, tarjetas amarillas y enlace de Drive de la cédula`;
+
+      document.getElementById('admSheetHomeHeader').innerHTML = `
+        ${renderTeamShield(home, 'w-8 h-8')}
+        <div>
+          <div class="font-bold text-xs sm:text-sm text-white">${escapeHtml(home ? home.name : 'Local')}</div>
+          <div class="text-[10px] text-emerald-400">Equipo Local</div>
+        </div>
+      `;
+      document.getElementById('admSheetAwayHeader').innerHTML = `
+        ${renderTeamShield(away, 'w-8 h-8')}
+        <div>
+          <div class="font-bold text-xs sm:text-sm text-white">${escapeHtml(away ? away.name : 'Visitante')}</div>
+          <div class="text-[10px] text-indigo-300">Equipo Visitante</div>
+        </div>
+      `;
+
+      // Cargar estado temporal de asistencias y tarjetas de este partido
+      modalTempAttendance = new Set(Array.isArray(m.attendance) ? m.attendance : []);
+      modalTempYellowCounts = {};
+      if (Array.isArray(m.yellowCards)) {
+        m.yellowCards.forEach(pid => {
+          modalTempYellowCounts[pid] = (modalTempYellowCounts[pid] || 0) + 1;
+        });
+      }
+      modalTempDirectSusp = new Set(
+        Array.isArray(m.directSuspensions) ? m.directSuspensions.map(ds => ds.playerId) : []
+      );
+
+      previewAdminCedulaDriveUrl();
+      renderAdminMatchSheetPlayersLists();
+
+      const modal = document.getElementById('adminMatchSheetModal');
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+      if (window.lucide) lucide.createIcons();
+    }
+
+    function closeAdminMatchSheetModal() {
+      const modal = document.getElementById('adminMatchSheetModal');
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+    }
+
+    function previewAdminCedulaDriveUrl() {
+      const rawUrl = document.getElementById('admSheetCedulaUrl')?.value || '';
+      const box = document.getElementById('admSheetCedulaPreviewBox');
+      if (!box) return;
+      const info = resolveDriveUrlInfo(rawUrl);
+      if (!info.valid) {
+        box.classList.add('hidden');
+        box.innerHTML = '';
+        return;
+      }
+
+      box.classList.remove('hidden');
+      box.innerHTML = `
+        <div class="p-3 rounded-xl bg-slate-950 border border-emerald-500/30 space-y-2">
+          <div class="flex flex-wrap items-center justify-between gap-2 text-xs">
+            <span class="text-emerald-300 font-bold flex items-center gap-1.5">
+              ✅ ${info.isDrive ? `Enlace de Google Drive detectado (ID: ${escapeHtml(info.fileId.slice(0, 12))}...)` : 'Enlace de imagen detectado'}
+            </span>
+            <a href="${escapeHtml(info.originalUrl)}" target="_blank" rel="noopener noreferrer" class="text-indigo-300 hover:underline font-semibold">
+              Abrir en pestaña nueva ↗
+            </a>
+          </div>
+          <div class="max-h-64 overflow-hidden rounded-lg border border-slate-800 bg-slate-900 flex items-center justify-center">
+            <img src="${escapeHtml(info.directImgUrl)}" alt="Vista previa de la cédula" class="max-h-60 w-auto object-contain mx-auto" onerror="if(this.src !== '${escapeHtml(info.fallbackImgUrl)}'){this.src='${escapeHtml(info.fallbackImgUrl)}';}else{this.style.display='none'; this.nextElementSibling.classList.remove('hidden');}" />
+            <iframe src="${escapeHtml(info.previewEmbedUrl)}" class="hidden w-full h-60 border-0" title="Vista previa Drive"></iframe>
+          </div>
+        </div>
+      `;
+    }
+
+    function renderAdminMatchSheetPlayersLists() {
+      const matchId = document.getElementById('admSheetMatchId')?.value;
+      const m = appState.matches.find(x => x.id === matchId);
+      if (!m) return;
+
+      const stats = calculatePlayersStatsAndSuspensions();
+      const renderSide = (teamId, containerId) => {
+        const container = document.getElementById(containerId);
+        if (!container) return;
+        const teamPlayers = (appState.players || []).filter(p => p.teamId === teamId).sort((a, b) => a.fullName.localeCompare(b.fullName));
+
+        if (teamPlayers.length === 0) {
+          container.innerHTML = `<div class="p-4 rounded-xl bg-slate-950/70 border border-slate-800 text-xs text-slate-400 text-center">No hay jugadores en este equipo aún. Usa el recuadro de arriba para agregar jugadores rápidamente.</div>`;
+          return;
+        }
+
+        container.innerHTML = teamPlayers.map(p => {
+          const ps = stats.playersStats.find(x => x.player.id === p.id);
+          const attended = modalTempAttendance.has(p.id);
+          const yc = modalTempYellowCounts[p.id] || 0;
+          const redSusp = modalTempDirectSusp.has(p.id);
+          const isSusp = ps && ps.isSuspended;
+
+          return `
+            <div class="p-2.5 rounded-xl border ${attended ? 'bg-emerald-950/20 border-emerald-500/40' : 'bg-slate-950/80 border-slate-800'} flex flex-wrap items-center justify-between gap-2 text-xs">
+              <div class="min-w-0 flex-1">
+                <div class="font-bold text-white truncate flex items-center gap-1.5">
+                  ${p.number ? `<span class="px-1.5 py-0.5 rounded bg-slate-800 text-slate-300 text-[10px]">#${escapeHtml(p.number)}</span>` : ''}
+                  <span>${escapeHtml(p.fullName)}</span>
+                </div>
+                <div class="text-[10px] text-slate-400 mt-0.5 flex flex-wrap items-center gap-1.5">
+                  <span>Total PJ: ${ps ? ps.totalAttended : 0}</span>
+                  <span>•</span>
+                  <span>Acum: ${ps ? ps.totalYellows : 0}🟨</span>
+                  ${isSusp ? `<span class="px-1.5 py-0.5 rounded bg-rose-500/20 text-rose-300 font-bold">🚫 SUSPENDIDO</span>` : ''}
+                </div>
+              </div>
+
+              <div class="flex items-center gap-1.5 shrink-0">
+                <button type="button" onclick="togglePlayerAttendanceInModal('${p.id}')" class="px-2.5 py-1.5 rounded-lg font-bold text-[11px] transition-all ${attended ? 'bg-emerald-500 text-slate-950 shadow-sm' : 'bg-slate-800 text-slate-400 hover:text-white'}">
+                  ${attended ? '✅ Asistió' : '⬜ Ausente'}
+                </button>
+                <button type="button" onclick="cyclePlayerYellowCardInModal('${p.id}')" class="px-2 py-1.5 rounded-lg font-bold text-[11px] transition-all ${yc > 0 ? 'bg-amber-400 text-slate-950 shadow-sm' : 'bg-slate-800 text-slate-400 hover:text-amber-300'}" title="Clic para alternar 0, 1 o 2 tarjetas amarillas en este partido">
+                  ${yc === 0 ? '🟨 0' : yc === 1 ? '🟨 1' : '🟨🟨 2'}
+                </button>
+                <button type="button" onclick="togglePlayerDirectSuspInModal('${p.id}')" class="px-2 py-1.5 rounded-lg font-bold text-[11px] transition-all ${redSusp ? 'bg-rose-600 text-white shadow-sm' : 'bg-slate-800 text-slate-400 hover:text-rose-300'}" title="Suspensión directa por tarjeta roja o reporte arbitral">
+                  ${redSusp ? '🟥 Sanción' : '🟥'}
+                </button>
+              </div>
+            </div>
+          `;
+        }).join('');
+      };
+
+      renderSide(m.homeTeamId, 'admSheetHomePlayersList');
+      renderSide(m.awayTeamId, 'admSheetAwayPlayersList');
+    }
+
+    function togglePlayerAttendanceInModal(playerId) {
+      if (modalTempAttendance.has(playerId)) {
+        modalTempAttendance.delete(playerId);
+      } else {
+        modalTempAttendance.add(playerId);
+      }
+      renderAdminMatchSheetPlayersLists();
+    }
+
+    function toggleAllTeamAttendanceInModal(side, markPresent) {
+      const matchId = document.getElementById('admSheetMatchId')?.value;
+      const m = appState.matches.find(x => x.id === matchId);
+      if (!m) return;
+      const teamId = side === 'home' ? m.homeTeamId : m.awayTeamId;
+      const teamPlayers = (appState.players || []).filter(p => p.teamId === teamId);
+      teamPlayers.forEach(p => {
+        if (markPresent) modalTempAttendance.add(p.id);
+        else modalTempAttendance.delete(p.id);
+      });
+      renderAdminMatchSheetPlayersLists();
+    }
+
+    function cyclePlayerYellowCardInModal(playerId) {
+      const current = modalTempYellowCounts[playerId] || 0;
+      const next = (current + 1) % 3; // 0 -> 1 -> 2 -> 0
+      modalTempYellowCounts[playerId] = next;
+      if (next > 0) {
+        modalTempAttendance.add(playerId); // Si recibió tarjeta en el partido, asistió al encuentro
+      }
+      renderAdminMatchSheetPlayersLists();
+    }
+
+    function togglePlayerDirectSuspInModal(playerId) {
+      if (modalTempDirectSusp.has(playerId)) {
+        modalTempDirectSusp.delete(playerId);
+      } else {
+        modalTempDirectSusp.add(playerId);
+        modalTempAttendance.add(playerId);
+      }
+      renderAdminMatchSheetPlayersLists();
+    }
+
+    function quickAddPlayerFromMatchModal(side) {
+      const matchId = document.getElementById('admSheetMatchId')?.value;
+      const m = appState.matches.find(x => x.id === matchId);
+      if (!m) return;
+      const inputId = side === 'home' ? 'quickAddHomePlayerName' : 'quickAddAwayPlayerName';
+      const inputEl = document.getElementById(inputId);
+      const rawName = (inputEl?.value || '').trim();
+      if (!rawName) return;
+
+      const teamId = side === 'home' ? m.homeTeamId : m.awayTeamId;
+      let number = '';
+      let fullName = rawName;
+      const matchNum = rawName.match(/^#?(\d{1,3})\s*[-–.:)]\s*(.+)$/);
+      if (matchNum) {
+        number = matchNum[1];
+        fullName = matchNum[2].trim();
+      }
+
+      const newPlayer = {
+        id: 'p_' + Date.now() + '_' + Math.random().toString(36).substring(2, 6),
+        teamId,
+        fullName,
+        number,
+        manualSuspended: false,
+        manualSuspensionReason: '',
+        manualSuspensionMatches: 1,
+        servedCycles: 0
+      };
+      appState.players.push(newPlayer);
+      modalTempAttendance.add(newPlayer.id);
+      if (inputEl) inputEl.value = '';
+      renderAdminMatchSheetPlayersLists();
+      showToast('Jugador agregado y presente', `${fullName} se registró en el equipo y se marcó su asistencia.`, 'success');
+    }
+
+    function saveAdminMatchSheetModal() {
+      const matchId = document.getElementById('admSheetMatchId')?.value;
+      const m = appState.matches.find(x => x.id === matchId);
+      if (!m) return;
+
+      // Detectar quiénes estaban suspendidos antes de guardar para avisar si alguien nuevo llega a 3 amarillas
+      const prevStats = calculatePlayersStatsAndSuspensions();
+      const prevSuspendedIds = new Set(prevStats.suspendedList.map(ps => ps.player.id));
+
+      m.cedulaUrl = (document.getElementById('admSheetCedulaUrl')?.value || '').trim();
+      m.cedulaNotes = (document.getElementById('admSheetCedulaNotes')?.value || '').trim();
+      m.attendance = Array.from(modalTempAttendance);
+
+      const newYellows = [];
+      Object.keys(modalTempYellowCounts).forEach(pid => {
+        const count = Number(modalTempYellowCounts[pid] || 0);
+        for (let i = 0; i < count; i++) {
+          newYellows.push(pid);
+        }
+      });
+      m.yellowCards = newYellows;
+
+      m.directSuspensions = Array.from(modalTempDirectSusp).map(pid => ({
+        playerId: pid,
+        reason: `Expulsión / Reporte en Cédula (Jornada ${m.matchday})`,
+        matches: 1,
+        served: false
+      }));
+
+      closeAdminMatchSheetModal();
+      saveAppState();
+
+      // Verificar si se generaron nuevas suspensiones automáticas por acumulación de 3 tarjetas amarillas
+      const afterStats = calculatePlayersStatsAndSuspensions();
+      const newlySuspended = afterStats.suspendedList.filter(ps => !prevSuspendedIds.has(ps.player.id));
+
+      if (newlySuspended.length > 0) {
+        const names = newlySuspended.map(ps => `${ps.player.fullName} (${ps.team ? ps.team.name : ''})`).join(', ');
+        createSystemNotification(
+          `🚫 Suspensión Oficial Generada (Jornada ${m.matchday})`,
+          `Inhabilitado(s) 1 partido: ${names}. Revisa el apartado de Jugadores Suspendidos.`,
+          'oficial',
+          'all'
+        );
+        saveAppState();
+      } else {
+        showToast('Cédula y asistencias guardadas', `Se actualizaron las asistencias, tarjetas y cédula de la Jornada ${m.matchday}.`, 'success');
+      }
+    }
+
+    // =========================================================================
+    // MODAL PÚBLICO PARA CONSULTAR CÉDULA (GOOGLE DRIVE), ASISTENCIAS Y TARJETAS
+    // =========================================================================
+
+    function openPublicMatchSheetModal(matchId) {
+      const m = appState.matches.find(x => x.id === matchId);
+      if (!m) return;
+      ensureAppStateSchema(appState);
+
+      const home = getTeamById(m.homeTeamId);
+      const away = getTeamById(m.awayTeamId);
+      const driveInfo = resolveDriveUrlInfo(m.cedulaUrl || '');
+
+      const homeAttendedPlayers = (appState.players || []).filter(p => p.teamId === m.homeTeamId && (m.attendance || []).includes(p.id));
+      const awayAttendedPlayers = (appState.players || []).filter(p => p.teamId === m.awayTeamId && (m.attendance || []).includes(p.id));
+
+      const countYellowInMatch = (pid) => (m.yellowCards || []).filter(id => id === pid).length;
+      const hasDirectSuspInMatch = (pid) => (m.directSuspensions || []).some(ds => ds.playerId === pid);
+
+      const renderAttendedList = (playersList, teamName) => {
+        if (playersList.length === 0) {
+          return `<div class="p-3 rounded-xl bg-slate-950/70 border border-slate-800 text-xs text-slate-400 text-center">Sin asistencias registradas para ${escapeHtml(teamName)} en este encuentro.</div>`;
+        }
+        return `
+          <div class="space-y-1.5">
+            ${playersList.map(p => {
+              const yc = countYellowInMatch(p.id);
+              const rd = hasDirectSuspInMatch(p.id);
+              return `
+                <div class="p-2.5 rounded-xl bg-slate-950/90 border border-slate-800 flex items-center justify-between text-xs">
+                  <div class="flex items-center gap-2">
+                    <span class="w-5 h-5 rounded-full bg-emerald-500/20 text-emerald-300 text-[10px] font-bold inline-flex items-center justify-center">✓</span>
+                    ${p.number ? `<span class="text-slate-400 font-bold">#${escapeHtml(p.number)}</span>` : ''}
+                    <span class="font-semibold text-white">${escapeHtml(p.fullName)}</span>
+                  </div>
+                  <div class="flex items-center gap-1">
+                    ${yc > 0 ? `<span class="px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 border border-amber-500/40 text-[10px] font-bold">${'🟨'.repeat(yc)}</span>` : ''}
+                    ${rd ? `<span class="px-2 py-0.5 rounded bg-rose-500/20 text-rose-300 border border-rose-500/40 text-[10px] font-bold">🟥 Sanción</span>` : ''}
+                  </div>
+                </div>
+              `;
+            }).join('')}
+          </div>
+        `;
+      };
+
+      const body = document.getElementById('publicMatchSheetModalBody');
+      body.innerHTML = `
+        <div class="flex items-start justify-between gap-3 border-b border-slate-800 pb-4">
+          <div class="flex items-center gap-3">
+            ${renderTeamShield(home, 'w-11 h-11')}
+            <div>
+              <span class="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 text-[10px] font-bold">JORNADA ${m.matchday} • ${escapeHtml(m.date)} (${escapeHtml(m.time)} hrs)</span>
+              <h3 class="font-display font-extrabold text-lg sm:text-xl text-white mt-0.5">
+                ${escapeHtml(home ? home.name : 'Local')}
+                <span class="text-emerald-400 mx-1">${m.status === 'scheduled' ? 'vs' : `${m.homeScore} - ${m.awayScore}`}</span>
+                ${escapeHtml(away ? away.name : 'Visitante')}
+              </h3>
+              <p class="text-xs text-slate-400">🏟️ ${escapeHtml(m.stadium)} ${m.cedulaNotes ? `• 📝 ${escapeHtml(m.cedulaNotes)}` : ''}</p>
+            </div>
+          </div>
+          <button type="button" onclick="closePublicMatchSheetModal()" class="p-2 rounded-xl bg-slate-800 text-slate-400 hover:text-white">
+            <i data-lucide="x" class="w-4 h-4"></i>
+          </button>
+        </div>
+
+        <!-- Imagen de la Cédula Oficial (Google Drive) -->
+        <div class="space-y-2.5">
+          <div class="flex flex-wrap items-center justify-between gap-2">
+            <h4 class="font-display font-bold text-sm text-emerald-400 flex items-center gap-2">
+              <i data-lucide="file-check-2" class="w-4 h-4"></i>
+              <span>Cédula / Acta Oficial del Partido</span>
+            </h4>
+            ${driveInfo.valid ? `
+              <div class="flex items-center gap-2">
+                <button type="button" onclick="togglePublicCedulaEmbedMode()" class="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 text-[11px] font-semibold">
+                  Alternar Visor Drive / Imagen
+                </button>
+                <a href="${escapeHtml(driveInfo.originalUrl)}" target="_blank" rel="noopener noreferrer" class="px-3 py-1 rounded-lg bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-300 border border-emerald-500/30 text-[11px] font-bold">
+                  Abrir en Google Drive ↗
+                </a>
+              </div>
+            ` : ''}
+          </div>
+
+          ${!driveInfo.valid
+            ? `<div class="p-6 rounded-2xl bg-slate-900/80 border border-slate-800 text-center space-y-1">
+                 <div class="text-xs font-bold text-slate-300">📄 Cédula pendiente de digitalizar</div>
+                 <p class="text-[11px] text-slate-400">El administrador aún no ha adjuntado el enlace de Google Drive de la cédula de este encuentro.</p>
+               </div>`
+            : `<div class="rounded-2xl overflow-hidden border border-slate-700 bg-slate-950 p-2">
+                 <img id="pubCedulaImgView" src="${escapeHtml(driveInfo.directImgUrl)}" alt="Cédula Oficial Jornada ${m.matchday}" class="max-h-[460px] w-auto mx-auto rounded-xl object-contain" onerror="if(this.src !== '${escapeHtml(driveInfo.fallbackImgUrl)}'){this.src='${escapeHtml(driveInfo.fallbackImgUrl)}';}else{this.classList.add('hidden'); document.getElementById('pubCedulaIframeView').classList.remove('hidden');}" />
+                 <iframe id="pubCedulaIframeView" src="${escapeHtml(driveInfo.previewEmbedUrl)}" class="hidden w-full h-[460px] rounded-xl border-0" title="Visor Google Drive de la Cédula"></iframe>
+               </div>`
+          }
+        </div>
+
+        <!-- Listado Transparente de Asistencias y Tarjetas del Partido -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2">
+          <div class="p-4 rounded-2xl bg-slate-900/90 border border-slate-800 space-y-2.5">
+            <div class="flex items-center justify-between border-b border-slate-800 pb-2">
+              <div class="flex items-center gap-2">
+                ${renderTeamShield(home, 'w-7 h-7')}
+                <span class="font-bold text-xs sm:text-sm text-white">${escapeHtml(home ? home.name : 'Local')}</span>
+              </div>
+              <span class="px-2 py-0.5 rounded bg-emerald-500/15 text-emerald-300 text-[11px] font-bold">${homeAttendedPlayers.length} asistentes</span>
+            </div>
+            ${renderAttendedList(homeAttendedPlayers, home ? home.name : 'Local')}
+          </div>
+
+          <div class="p-4 rounded-2xl bg-slate-900/90 border border-slate-800 space-y-2.5">
+            <div class="flex items-center justify-between border-b border-slate-800 pb-2">
+              <div class="flex items-center gap-2">
+                ${renderTeamShield(away, 'w-7 h-7')}
+                <span class="font-bold text-xs sm:text-sm text-white">${escapeHtml(away ? away.name : 'Visitante')}</span>
+              </div>
+              <span class="px-2 py-0.5 rounded bg-emerald-500/15 text-emerald-300 text-[11px] font-bold">${awayAttendedPlayers.length} asistentes</span>
+            </div>
+            ${renderAttendedList(awayAttendedPlayers, away ? away.name : 'Visitante')}
+          </div>
+        </div>
+      `;
+
+      const modal = document.getElementById('publicMatchSheetModal');
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+      if (window.lucide) lucide.createIcons();
+    }
+
+    function togglePublicCedulaEmbedMode() {
+      const img = document.getElementById('pubCedulaImgView');
+      const ifr = document.getElementById('pubCedulaIframeView');
+      if (!img || !ifr) return;
+      img.classList.toggle('hidden');
+      ifr.classList.toggle('hidden');
+    }
+
+    function closePublicMatchSheetModal() {
+      const modal = document.getElementById('publicMatchSheetModal');
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+    }
+
+    function exportSuspensionsWhatsApp() {
+      const stats = calculatePlayersStatsAndSuspensions();
+      let text = `🚫 *REPORTE DISCIPLINARIO — ${appState.settings.leagueName.toUpperCase()}*
+`;
+      if (stats.suspendedList.length === 0) {
+        text += `✅ Sin jugadores suspendidos actualmente.
+`;
+      } else {
+        text += `
+*JUGADORES SUSPENDIDOS (NO PUEDEN JUGAR):*
+`;
+        stats.suspendedList.forEach((ps, idx) => {
+          text += `${idx + 1}. *${ps.player.fullName}* (${ps.team ? ps.team.name : ''}) — ${ps.suspensionGames} partido(s) | Motivo: ${ps.suspensionReason}
+`;
+        });
+      }
+      if (stats.capillaList.length > 0) {
+        text += `
+⚠️ *EN CAPILLA (2 DE 3 AMARILLAS):*
+`;
+        stats.capillaList.forEach(ps => {
+          text += `• ${ps.player.fullName} (${ps.team ? ps.team.name : ''}) — 2🟨
+`;
+        });
+      }
+      copyTextToClipboard(text);
+      showToast('📋 Reporte Copiado', 'Pega el reporte de jugadores suspendidos en el grupo de WhatsApp de la liga.', 'success');
+    }
+
+    window.resolveDriveUrlInfo = resolveDriveUrlInfo;
+    window.calculatePlayersStatsAndSuspensions = calculatePlayersStatsAndSuspensions;
+    window.renderPublicPlayersAndSuspensions = renderPublicPlayersAndSuspensions;
+    window.syncAdminRosterFilterWithSelect = syncAdminRosterFilterWithSelect;
+    window.openAdminRosterForTeam = openAdminRosterForTeam;
+    window.saveMinMatchesRequirement = saveMinMatchesRequirement;
+    window.savePlayerFromAdmin = savePlayerFromAdmin;
+    window.bulkAddPlayersToTeam = bulkAddPlayersToTeam;
+    window.editPlayerInAdmin = editPlayerInAdmin;
+    window.resetAdminPlayerForm = resetAdminPlayerForm;
+    window.deletePlayerFromAdmin = deletePlayerFromAdmin;
+    window.applyManualPlayerSuspension = applyManualPlayerSuspension;
+    window.clearPlayerSuspensionInAdmin = clearPlayerSuspensionInAdmin;
+    window.renderAdminPlayersSection = renderAdminPlayersSection;
+    window.openAdminMatchSheetModal = openAdminMatchSheetModal;
+    window.closeAdminMatchSheetModal = closeAdminMatchSheetModal;
+    window.previewAdminCedulaDriveUrl = previewAdminCedulaDriveUrl;
+    window.togglePlayerAttendanceInModal = togglePlayerAttendanceInModal;
+    window.toggleAllTeamAttendanceInModal = toggleAllTeamAttendanceInModal;
+    window.cyclePlayerYellowCardInModal = cyclePlayerYellowCardInModal;
+    window.togglePlayerDirectSuspInModal = togglePlayerDirectSuspInModal;
+    window.quickAddPlayerFromMatchModal = quickAddPlayerFromMatchModal;
+    window.saveAdminMatchSheetModal = saveAdminMatchSheetModal;
+    window.openPublicMatchSheetModal = openPublicMatchSheetModal;
+    window.togglePublicCedulaEmbedMode = togglePublicCedulaEmbedMode;
+    window.closePublicMatchSheetModal = closePublicMatchSheetModal;
+    window.exportSuspensionsWhatsApp = exportSuspensionsWhatsApp;
+
     window.registerInitialFirebaseAdmin = registerInitialFirebaseAdmin;
     window.dismissFloatingPwaBanner = dismissFloatingPwaBanner;
     window.markPwaAlreadyInstalled = markPwaAlreadyInstalled;
@@ -3566,7 +5344,7 @@ service cloud.firestore {
         }
       } catch (e) {}
       initFirebaseConnection(activeConfig);
-      renderAll();
+      switchEnvironment(currentEnvironment);
       checkPushPermissionBanner();
       setTimeout(checkAndShowFloatingPwaBanner, 1200);
     });
