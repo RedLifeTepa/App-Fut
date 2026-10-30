@@ -2,7 +2,7 @@
  * Service Worker Oficial — Liga Veteranos 38 PWA
  * Compatible con Firebase Hosting y GitHub Pages (rutas relativas y caché resiliente)
  */
-const CACHE_NAME = 'liga-veteranos-38-v6-2026';
+const CACHE_NAME = 'liga-veteranos-38-v7-2026';
 const ASSETS_TO_CACHE = [
   './',
   './index.html',

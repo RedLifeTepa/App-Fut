@@ -767,7 +767,7 @@
               Crear cuenta en Firebase Auth
             </button>
           </div>
-          <div class="flex items-center justify-between">
+          <div class="hidden items-center justify-between">
             <span>¿Deseas verificar las credenciales o reglas?</span>
             <button type="button" onclick="openArchitectureModal()" class="text-emerald-400 hover:text-emerald-300 font-semibold underline">
               Ver Reglas de Firebase
@@ -1843,7 +1843,7 @@ service cloud.firestore {
   <!-- ========================================================================= -->
   <!-- INDICADOR DE PUNTO FIJO ABAJO A LA DERECHA (ESTADO DE CONEXIÓN FIREBASE)  -->
   <!-- ========================================================================= -->
-  <div id="firebaseLiveDotIndicator" onclick="openFirebaseModal()" class="fixed bottom-3 right-3 z-50 cursor-pointer select-none flex items-center gap-2 px-3 py-1.5 rounded-full bg-slate-900/95 border border-slate-700/90 shadow-xl backdrop-blur-md hover:border-emerald-500/50 transition-all" title="Estado de conexión en tiempo real con Firebase (app-fut-ee0b6)">
+  <div id="firebaseLiveDotIndicator" onclick="openFirebaseModal()" class="hidden fixed bottom-3 right-3 z-50 cursor-pointer select-none items-center gap-2 px-3 py-1.5 rounded-full bg-slate-900/95 border border-slate-700/90 shadow-xl backdrop-blur-md hover:border-emerald-500/50 transition-all" title="Estado de conexión en tiempo real con Firebase (Exclusivo Admin)">
     <span id="firebaseDotCircle" class="w-2.5 h-2.5 rounded-full bg-amber-400 animate-pulse"></span>
     <span id="firebaseDotLabel" class="text-[11px] font-bold text-slate-200 tracking-tight">Conectando...</span>
   </div>
@@ -1884,16 +1884,19 @@ service cloud.firestore {
       const indicator = document.getElementById('firebaseLiveDotIndicator');
       if (!dot || !label || !indicator) return;
 
+      const showForAdminOnly = Boolean(typeof isAdminAuthenticated !== 'undefined' && isAdminAuthenticated && typeof currentEnvironment !== 'undefined' && currentEnvironment === 'admin');
+      const visClass = showForAdminOnly ? 'flex' : 'hidden';
+
       if (connected && navigator.onLine !== false) {
         dot.className = 'w-2.5 h-2.5 rounded-full bg-emerald-400 shadow-[0_0_8px_#34d399] animate-pulse';
         label.textContent = customText || 'Conectado';
         label.className = 'text-[11px] font-bold text-emerald-300 tracking-tight';
-        indicator.className = 'fixed bottom-3 right-3 z-50 cursor-pointer select-none flex items-center gap-2 px-3 py-1.5 rounded-full bg-slate-900/95 border border-emerald-500/40 shadow-xl backdrop-blur-md hover:border-emerald-400 transition-all';
+        indicator.className = `${visClass} fixed bottom-3 right-3 z-50 cursor-pointer select-none items-center gap-2 px-3 py-1.5 rounded-full bg-slate-900/95 border border-emerald-500/40 shadow-xl backdrop-blur-md hover:border-emerald-400 transition-all`;
       } else {
         dot.className = 'w-2.5 h-2.5 rounded-full bg-rose-500 shadow-[0_0_8px_#f43f5e]';
         label.textContent = customText || 'Desconectado';
         label.className = 'text-[11px] font-bold text-rose-300 tracking-tight';
-        indicator.className = 'fixed bottom-3 right-3 z-50 cursor-pointer select-none flex items-center gap-2 px-3 py-1.5 rounded-full bg-slate-900/95 border border-rose-500/40 shadow-xl backdrop-blur-md hover:border-rose-400 transition-all';
+        indicator.className = `${visClass} fixed bottom-3 right-3 z-50 cursor-pointer select-none items-center gap-2 px-3 py-1.5 rounded-full bg-slate-900/95 border border-rose-500/40 shadow-xl backdrop-blur-md hover:border-rose-400 transition-all`;
       }
     }
 
@@ -2636,6 +2639,11 @@ service cloud.firestore {
         btnPub.className = 'flex items-center gap-1.5 px-3 py-1.5 rounded-md font-semibold transition-all text-slate-400 hover:text-white';
         updateAdminGateVisibility();
       }
+      if (env === 'public') {
+        closeFirebaseModal();
+        closeArchitectureModal();
+      }
+      updateConnectionDotUI(isFirebaseConnected);
       renderAll();
     }
 
@@ -2648,7 +2656,10 @@ service cloud.firestore {
       } else {
         gate.classList.remove('hidden');
         dash.classList.add('hidden');
+        closeFirebaseModal();
+        closeArchitectureModal();
       }
+      updateConnectionDotUI(isFirebaseConnected);
     }
 
     function handleAdminLogin(e) {
@@ -4193,8 +4204,9 @@ service cloud.firestore {
       modal.classList.remove('flex');
     }
 
-    // Modales de Firebase, Arquitectura e Instalación PWA
+    // Modales de Firebase, Arquitectura e Instalación PWA (Exclusivos para Administrador Autenticado)
     function openFirebaseModal() {
+      if (!isAdminAuthenticated) return;
       const m = document.getElementById('firebaseConfigModal');
       try {
         const savedCfg = localStorage.getItem(FIREBASE_CONFIG_KEY);
@@ -4206,11 +4218,13 @@ service cloud.firestore {
 
     function closeFirebaseModal() {
       const m = document.getElementById('firebaseConfigModal');
+      if (!m) return;
       m.classList.add('hidden');
       m.classList.remove('flex');
     }
 
     function saveAndConnectFirebase() {
+      if (!isAdminAuthenticated) return;
       const raw = document.getElementById('firebaseConfigTextarea').value.trim();
       if (!raw) {
         showToast('Configuración vacía', 'Pega el objeto JSON de tu proyecto de Firebase.', 'error');
@@ -4234,6 +4248,7 @@ service cloud.firestore {
     }
 
     function disconnectFirebaseConfig() {
+      if (!isAdminAuthenticated) return;
       try {
         localStorage.removeItem(FIREBASE_CONFIG_KEY);
       } catch (e) {}
@@ -4243,6 +4258,7 @@ service cloud.firestore {
     }
 
     function openArchitectureModal() {
+      if (!isAdminAuthenticated) return;
       const m = document.getElementById('architectureModal');
       m.classList.remove('hidden');
       m.classList.add('flex');
@@ -4250,6 +4266,7 @@ service cloud.firestore {
 
     function closeArchitectureModal() {
       const m = document.getElementById('architectureModal');
+      if (!m) return;
       m.classList.add('hidden');
       m.classList.remove('flex');
     }
