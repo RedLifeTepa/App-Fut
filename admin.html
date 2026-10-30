@@ -2225,14 +2225,13 @@ service cloud.firestore {
       };
     }
 
-    let appState = loadAppState();
-
     const DEFAULT_RULES_TITLE_CONST = 'Reglamento de Localía, Sedes y Uniformes Oficiales';
     const DEFAULT_RULES_SUBTITLE_CONST = '14 Jornadas Oficiales • Martes (Villas del Roble) y Jueves/Viernes (Cancha Mirindas)';
     const DEFAULT_RULES_BODY_CONST = 'Localía y Uniformes: El primer equipo listado es el Local y deberá usar el uniforme del color indicado: ● Veterinarios: rojo · ○ Cuervos: blanco · ● Español: amarillo · ● Vakaxi: azul rey · ● Fisicure: verde · ● San Lucas: azul fuerte · ●● ST de Los Altos: negro con morado.\n- Locales especiales en Villas del Roble: Jornada 1: Veterinarios · Jornada 3: Cuervos · Jornada 11: Vakaxi.\n- Descanso general: Semanas del 21 al 27 de diciembre de 2026 y del 28 de diciembre al 3 de enero de 2027.';
 
-    let viewingTournamentId = 'current';
-    let liveTournamentBackup = null;
+    var viewingTournamentId = 'current';
+    var liveTournamentBackup = null;
+    var appState = loadAppState();
 
     function ensureAppStateSchema(state) {
       if (!state || typeof state !== 'object') return getInitialDemoState();
